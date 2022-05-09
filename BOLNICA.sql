@@ -115,3 +115,9 @@ CREATE TABLE posjeta (
     FOREIGN KEY (id_pacijent) REFERENCES pacijent (id),
     FOREIGN KEY (id_soba) REFERENCES soba (id)
 );
+
+id	ime vrsta pregleda
+1 	tin	kontrolni	
+2	tin	prijem	
+3	mate	kontrolni
+4	...
