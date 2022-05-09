@@ -80,5 +80,14 @@ CREATE TABLE zaposleni (
     datum_kraja_rada DATE NOT NULL,
     FOREIGN KEY (id_odjel) REFERENCES odjel (id)
 );
-
-TEST
+CREATE TABLE oprema (
+	id INTEGER PRIMARY KEY,
+    id_odjel INTEGER NOT NULL,
+    id_soba INTEGER NOT NULL,
+    naziv VARCHAR(20) NOT NULL,
+    sifra VARCHAR(20) NOT NULL,
+    datum_zaprimanja DATE NOT NULL,
+    datum_otpisa DATE NOT NULL,
+    FOREIGN KEY (id_odjel) REFERENCES odjel (id)
+    FOREIGN KEY (id_soba) REFERENCES soba (id)
+);
