@@ -88,6 +88,18 @@ CREATE TABLE oprema (
     sifra VARCHAR(20) NOT NULL,
     datum_zaprimanja DATE NOT NULL,
     datum_otpisa DATE NOT NULL,
-    FOREIGN KEY (id_odjel) REFERENCES odjel (id)
+    FOREIGN KEY (id_odjel) REFERENCES odjel (id),
+    FOREIGN KEY (id_soba) REFERENCES soba (id)
+);
+CREATE TABLE posjeta (
+	id INTEGER PRIMARY KEY,
+    ime VARCHAR(20) NOT NULL,
+    prezime VARCHAR(30) NOT NULL,
+    id_pacijent INTEGER NOT NULL,
+    id_soba INTEGER NOT NULL,
+    datum DATE NOT NULL,
+    vrijeme_dolaska TIME NOT NULL,
+    vrijeme_odlaska TIME NOT NULL,
+    FOREIGN KEY (id_pacijent) REFERENCES pacijent (id),
     FOREIGN KEY (id_soba) REFERENCES soba (id)
 );
