@@ -26,7 +26,7 @@ CREATE TABLE odjel (
     FOREIGN KEY (id_medsestra) REFERENCES medicinske_sestre (id)
 );
 CREATE TABLE recept (
-	id INTEGER PRIMARY KEY, 
+	id INTEGER PRIMARY KEY,
     id_doktor INTEGER NOT NULL,
     id_pacijent INTEGER NOT NULL,
     datum DATE NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE soba (
     vrijeme_izlaska DATETIME NOT NULL,
     FOREIGN KEY (id_pacijent) REFERENCES pacijent (id),
     FOREIGN KEY (id_medsestra) REFERENCES medicinske_sestre (id)
-);    
+);
 CREATE TABLE medicinske_sestre(
 	id INTEGER PRIMARY KEY,
     ime VARCHAR (20) NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE termin (
     FOREIGN KEY (id_pacijent) REFERENCES pacijent (id)
 );
 CREATE TABLE terapija (
-	id INTEGER PRIMARY KEY, 
+	id INTEGER PRIMARY KEY,
     id_recept INTEGER NOT NULL,
     naziv_lijeka VARCHAR (30) NOT NULL UNIQUE,
     kolicina INTEGER NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE terapija (
     CHECK (kolicina > 0)
 );
 CREATE TABLE dezurstvo (
-	id INTEGER PRIMARY KEY, 
+	id INTEGER PRIMARY KEY,
     id_medsestra INTEGER NOT NULL,
     id_odjel INTEGER NOT NULL,
     datum_dezurstva DATE NOT NULL,
@@ -80,13 +80,3 @@ CREATE TABLE zaposleni (
     datum_kraja_rada DATE NOT NULL,
     FOREIGN KEY (id_odjel) REFERENCES odjel (id)
 );
-
-TEST TIN P.
-=======
-MARIJA
-Noel
-noelll
-RADI RADIO555
-nesto222
-...
-RADI NE RADI
