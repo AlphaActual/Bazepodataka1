@@ -84,3 +84,4 @@ CREATE TABLE zaposleni (
 TEST TIN P.
 MARIJA
 Noel
+RADI RADIO
