@@ -80,3 +80,5 @@ CREATE TABLE zaposleni (
     datum_kraja_rada DATE NOT NULL,
     FOREIGN KEY (id_odjel) REFERENCES odjel (id)
 );
+
+TEST
