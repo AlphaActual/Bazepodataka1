@@ -6,7 +6,7 @@ CREATE TABLE doktor (
 	id INTEGER PRIMARY KEY,
     ime VARCHAR (20) NOT NULL,
     prezime VARCHAR (30) NOT NULL,
-    datum_rodenja DATE NOT NULL
+    datum_rodenja DATETIME NOT NULL
 );
 -- id 600 do 700
 CREATE TABLE medicinske_sestre(
