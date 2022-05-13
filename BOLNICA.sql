@@ -1,6 +1,6 @@
+DROP DATABASE IF EXISTS bolnica;
 CREATE DATABASE bolnica;
 USE bolnica;
--- DROP DATABASE bolnica;
 -- id 100 do 200
 CREATE TABLE doktor (
 	id INTEGER PRIMARY KEY,
