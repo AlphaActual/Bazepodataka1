@@ -10,7 +10,6 @@
 7. soba([id], broj_sobe, broj_kreveta, status, {id_odjel})
 8. lijek([id], vrsta, proizvodac, naziv, opis)
 9. terapija([id], {id_pacijent}, {id_lijek})
-
 - Neven
 10. prijem([id], datum_prijema, {id_pacijent}, {id_medicinska_sestra}, {id_doktor}, {id_dijagnoza}, {id_odjel}, {id_soba})
 11. posjeta([id], ime, prezime, temperatura, datum, vrijeme_dolaska, vrijeme_odlaska, {id_pacijent})
@@ -29,5 +28,6 @@ Veze - Kardinalnost (ovo mi je tok misli za dijagram)
 -> 2. pacijent ima sos_kontakt (jedan pacijent ima jedan sos_kontakt, dok je taj sos_kontakt vezan samo za tog pacijenta) 1 to 1 (ovo ćemo navesti ovako, da si ne kompliciramo daljnji tok rada)
 -> 3. medicinska_sestra radi na odjelu (medicinska_sestra radi na jednom odijelu, dok na tom odjelu može raditi više sestara) 1 to M
 -> 4. soba se nalazi u odjelu (soba je u odjelu, dok odjel može imati više različitih soba) 1 to M
--> 5.1. terapija je propisana pacijentu (pacijent može primati više terapija, dok se ta terapija može propisati većem broju pacijenata) M to M
--> 5.2. lijek se izdaje za propisanu terapiju (lijek se izdaje na više terapija, dok se  )
+-> 5.1. terapija je propisana pacijentu (pacijent prima jednu terapiju, dok se ta terapija može propisati većem broju pacijenata) 1 to M
+-> 5.2. lijek se izdaje za propisanu terapiju (lijek se izdaje za terapiju, dok ta terapija sadrži jedan lijek) 1 to 1 (isto navesti u prezentaciji)
+-> 6.1. pacijent primljen u bolnicu ()
