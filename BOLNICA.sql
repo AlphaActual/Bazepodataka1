@@ -70,7 +70,7 @@ CREATE TABLE terapija (
 	id INTEGER PRIMARY KEY,
     id_recept INTEGER NOT NULL,
     naziv_lijeka VARCHAR (30) NOT NULL UNIQUE,
-    kolicina VARCHAR(20) NOT NULL,
+    kolicina INTEGER NOT NULL,
     FOREIGN KEY (id_recept) REFERENCES recept (id),
     CHECK (kolicina > 0)
 );
@@ -129,8 +129,8 @@ INSERT INTO pacijent VALUES (200, 'Zora', 'Kunstl', STR_TO_DATE('15.09.1956.','%
                               (202, 'Issa', 'Biševac', STR_TO_DATE('07.10.2012.','%d.%m.%Y.'), 'Put Duilova 11', 'Ž', '0929430314', '47395186'),
                               (203, 'Elenora', 'Delfar', STR_TO_DATE('25.05.1998.','%d.%m.%Y.'), 'Ante Starčevića 23', 'Ž', '0957923190', '82641357'),
                               (204, 'Aden', 'Kotolaš', STR_TO_DATE('16.04.1989.','%d.%m.%Y.'), 'Poljička cesta 32', 'M', '0997871285', '98356471');
-
-
+			      
+			   
 # --------------------------NOEL--------------------------- --
 # unošenje podataka unutar relacija termin, terapija, recept
 
@@ -139,16 +139,37 @@ INSERT INTO termin VALUES (700, 103, 204, STR_TO_DATE('10.05.2022.', '%d.%m.%Y.'
                           (702, 102, 202, STR_TO_DATE('11.05.2022.', '%d.%m.%Y.'),'12:30'),
 		          (703, 100, 203, STR_TO_DATE('15.05.2022.', '%d.%m.%Y.'),'09:45'),
 			  (704, 101, 201, STR_TO_DATE('13.05.2022.', '%d.%m.%Y.'),'08:30');
-
+                          
 INSERT INTO recept VALUES (400, 103, 204, STR_TO_DATE('10.05.2022.', '%d.%m.%Y.')),
 			  (401, 104, 200, STR_TO_DATE('10.05.2022.', '%d.%m.%Y.')),
                           (402, 102, 202, STR_TO_DATE('11.05.2022.', '%d.%m.%Y.')),
-                          (403, 100, 203, STR_TO_DATE('15.05.2022.', '%d.%m.%Y.')),
+                          (403, 100, 203, STR_TO_DATE('15.05.2022.', '%d.%m.%Y.')),       
                           (404, 101, 201, STR_TO_DATE('13.05.2022.', '%d.%m.%Y.'));
-
-# pokušaj,  prijedlog-promijeniti količinu iz INT u VARCHAR da mogu napisati npr "550mg"?
+                          
+# pokušaj,  prijedlog-promijeniti količinu iz INT u VARCHAR da mogu napisati npr "550mg"?			
 INSERT INTO terapija VALUES (800, 400, 'lijek1', 550),
-			    (801, 403, 'lijek2', 550),
-                            (802, 404, 'lijek3', 550),
+			    (801, 403, 'lijek2', 550), 
+                            (802, 404, 'lijek3', 550), 
                             (803, 402, 'lijek4', 550),
                             (804, 401, 'lijek5', 550);
+			    
+			    
+-----------------------------------------NEVEN-------------------------------
+
+INSERT INTO medicinske_sestre VALUES (600, 'Ivana', 'Ivić',1992),
+(601, 'Miliana', 'Milić',STR_TO_DATE('11.02.1999','%d.%m.%Y.')),
+(602, 'Ivana','Marić',STR_TO_DATE('01.02.1998','%d.%m.%Y.')),
+(603, 'Marko', 'Marulić',STR_TO_DATE('13.03.2000','%d.%m.%Y.')),
+(604, 'Žarka', 'Stanić', STR_TO_DATE('05.02.1992','%d.%m.%Y.'));
+
+INSERT INTO odjel VALUES (300,100,600,'ortopedija' ),
+(301,101,601,'ortopedija' ),
+(302,102,602,'ortopedija' ),
+(303,103,603,'ortopedija' ),
+(304,104,604,'ortopedija' );
+
+INSERT INTO soba VALUES(500,200,600,1,12.00,13.00),
+(501,201,601,2,TIME("11:30:10"),TIME("11:35:10")),
+(502,202,602,3,TIME("12:30:10"),TIME("13:30:10")),
+(503,203,603,4,TIME("14:30:10"),TIME("15:30:10")),
+(500,204,604,5,TIME("16:30:10"),TIME("17:30:10"));
