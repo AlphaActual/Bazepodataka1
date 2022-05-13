@@ -123,3 +123,8 @@ INSERT INTO doktor VALUES (100, 'Krešimira', 'Paspalj', STR_TO_DATE('11.01.1978
                               (102, 'Šime', 'Ljubić', STR_TO_DATE('09.12.1973.','%d.%m.%Y.')),
                               (103, 'Jasmina', 'Mejak', STR_TO_DATE('03.06.1985.','%d.%m.%Y.')),
                               (104, 'Mauro', 'Tomasov', STR_TO_DATE('24.07.1970.','%d.%m.%Y.'));
+INSERT INTO pacijent VALUES (200, 'Zora', 'Kunstl', STR_TO_DATE('15.09.1956.','%d.%m.%Y.'), 'Žitnjačka cesta 25', 'Ž', '0997314087', '69472315'),
+                              (201, 'Stanko', 'Sutarić', STR_TO_DATE('23.02.1962.','%d.%m.%Y.'), 'Zavrtnica 17', 'M', '0916813627', '82631549'),
+                              (202, 'Issa', 'Biševac', STR_TO_DATE('07.10.2012.','%d.%m.%Y.'), 'Put Duilova 11', 'Ž', '0929430314', '47395186'),
+                              (203, 'Elenora', 'Delfar', STR_TO_DATE('25.05.1998.','%d.%m.%Y.'), 'Ante Starčevića 23', 'Ž', '0957923190', '82641357'),
+                              (204, 'Aden', 'Kotolaš', STR_TO_DATE('16.04.1989.','%d.%m.%Y.'), 'Poljička cesta 32', 'M', '0997871285', '98356471');
