@@ -60,7 +60,8 @@ CREATE TABLE termin (
 	id INTEGER PRIMARY KEY,
     id_doktor INTEGER NOT NULL,
     id_pacijent INTEGER NOT NULL,
-    vrijeme_termina DATETIME NOT NULL,
+    datum_termina DATE NOT NULL,
+    vrijeme_termina TIME NOT NULL,
     FOREIGN KEY (id_doktor) REFERENCES doktor (id),
     FOREIGN KEY (id_pacijent) REFERENCES pacijent (id)
 );
