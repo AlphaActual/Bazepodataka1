@@ -1,0 +1,23 @@
+- Marija
+1. odjel([id], naziv, kat, broj_soba)
+2. doktor([id], ime, prezime, datum_rođenja, {id_odjel})
+3. sos_kontakt([id], ime, prezime, broj_telefona)
+- Noel
+4. pacijent([id], ime, prezime, datum_rodenja, adresa, spol, MBO, broj_telefona, {id_sos_kontakt})
+5. medicinska_sestra([id], ime, prezime, datum_rodenja, {id_odjel})
+6. dijagnoza([id], sifra, naziv)
+- Tin
+7. soba([id], broj_sobe, broj_kreveta, status, {id_odjel})
+8. lijek([id], vrsta, proizvodac, naziv, opis)
+9. terapija([id], {id_pacijent}, {id_lijek})
+- Neven
+10. prijem([id], datum_prijema, {id_pacijent}, {id_medicinska_sestra}, {id_doktor}, {id_dijagnoza}, {id_odjel}, {id_soba})
+11. posjeta([id], ime, prezime, temperatura, datum, vrijeme_dolaska, vrijeme_odlaska, {id_pacijent})
+12. raspored_opreme([id], sifra, naziv, datum_zaprimanja, datum_otpisa, kolicina, {id_soba})
+
+[] - primarni
+{} - strani
+
+
+-> jedan doktor može biti na jednom odjelu
+-> jedna medicinska sestra može biti na jednom odjelu
