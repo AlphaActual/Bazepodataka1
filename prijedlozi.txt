@@ -22,12 +22,20 @@
 -> jedan doktor može biti na jednom odjelu
 -> jedna medicinska sestra može biti na jednom odjelu
 
------Darjan-----
-Veze - Kardinalnost (ovo mi je tok misli za dijagram)
--> 1. doktor radi na odjelu (doktor radi na jednom odjelu, dok na tom odjelu može raditi više doktora) - 1 to M
--> 2. pacijent ima sos_kontakt (jedan pacijent ima jedan sos_kontakt, dok je taj sos_kontakt vezan samo za tog pacijenta) 1 to 1 (ovo ćemo navesti ovako, da si ne kompliciramo daljnji tok rada)
--> 3. medicinska_sestra radi na odjelu (medicinska_sestra radi na jednom odijelu, dok na tom odjelu može raditi više sestara) 1 to M
--> 4. soba se nalazi u odjelu (soba je u odjelu, dok odjel može imati više različitih soba) 1 to M
--> 5.1. terapija je propisana pacijentu (pacijent prima jednu terapiju, dok se ta terapija može propisati većem broju pacijenata) 1 to M
--> 5.2. lijek se izdaje za propisanu terapiju (lijek se izdaje za terapiju, dok ta terapija sadrži jedan lijek) 1 to 1 (isto navesti u prezentaciji)
--> 6.1. pacijent primljen u bolnicu ()
+                                                                        -----Darjan-----
+                                        Veze - Kardinalnost (ovo mi je tok misli za dijagram i konceptualni opis poslovnog procesa)
+
+-> 1. DOKTOR radi na ODJELU (doktor radi na jednom odjelu, dok na tom odjelu može raditi više doktora) - 1 to M
+-> 2. PACIJENT ima SOS_KONTAKT (jedan pacijent ima jedan sos_kontakt, dok je taj sos_kontakt vezan samo za tog pacijenta) 1 to 1 (ovo ćemo navesti ovako, da si ne kompliciramo daljnji tok rada)
+-> 3. MEDICINSKA_SESTRA radi na ODJELU (medicinska_sestra radi na jednom odijelu, dok na tom odjelu može raditi više sestara) 1 to M
+-> 4. SOBA se nalazi u ODJELU (soba je u odjelu, dok odjel može imati više različitih soba) 1 to M
+-> 5.1. TERAPIJA je propisana PACIJENTU (pacijent prima jednu terapiju, dok se ta terapija može propisati većem broju pacijenata) 1 to M
+-> 5.2. LIJEK se izdaje za TERAPIJU (lijek se izdaje za terapiju, dok ta terapija sadrži jedan lijek) 1 to 1 (isto navesti u prezentaciji)
+-> 6.1. PACIJENT PRIMLJEN u bolnicu (taj pacijent je primljen u bolnicu, dok u bolnicu može biti primljeno više pacijenata) 1 to M ---> možda i nova relacija PRIJEM_PACIJENTA jer se onda mogu povezati primarni ključevi PACIJENTA i PRIJEMA kao strani ključ za PRIJEM_PACIJENTA
+-> 6.2. MEDICINSKA_SESTRA obavlja PRIJEM (jedan prijem je obavljen od medicinske sestre, dok medicinska sestra može obaviti više prijema) 1 to M
+-> 6.3. DOKTOR pregledava PACIJENTA (pacijent je pregledan od jednog doktora, dok isti taj doktor može imati više pacijenata) 1 to M
+-> 6.4. [doktor] DIJAGNOZA je uspostavljena nakon PRIJEMA [pacijentu] (jedna dijagnoza za prijem, dok taj prijem ima samo jednu dijagnozu) 1 to 1 ---> nema baš smisla, probati realocirati DIJAGNOZU preko DOKTORA I PACIJENTA kao novu relaciju DIJAGNOZA_PACIJENTA
+-> 6.5. id_odjel je redudantan u relaciji PRIJEM ---> imamo ga preko sobe, medicinske_sestre, doktora (samo će se ponavljati iste vrijednosti, može se maknuti)
+-> 6.6. SOBA nakon PRIJEMA??? ---> kao i DIJAGNOZA, nema baš smisla, možda izbaciti iz sheme???
+-> 6.7. POSJETITELJ posjećuje PACIJENTA (jedan posjetitelj posjećuje pacijenta, dok taj pacijent može imati više posjetitelja) 1 to M
+-> 6.8. OPREMA je raspoređena po SOBI (jedna soba ima više opreme, dok oprema može biti u više soba) M to M ---> za ovo mora postojati dodatna relacija STAVKA_OPREME ili slično gdje se primarni ključevi SOBE i OPREME referenciraju kao strani ključ za STAVKU_OPREME
