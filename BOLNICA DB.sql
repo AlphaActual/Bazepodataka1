@@ -138,7 +138,7 @@ FOREIGN KEY (id_soba) REFERENCES soba(id)
   id INTEGER PRIMARY KEY,
   id_raspored_opreme INTEGER NOT NULL,
   količina INTEGER NOT NULL;
-  FOREIGN KEY (id_raspored_opreme) REFERENCES raspored_opreme(ID)
+  FOREIGN KEY (id_raspored_opreme) REFERENCES raspored_opreme(id)
     
   ):
 
