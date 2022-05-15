@@ -25,7 +25,6 @@ broj_telefona VARCHAR (15) NOT NULL UNIQUE
 );
 
 -- ----------------------NOEL--------------------- --
---id-jevi 400-500,500-600,600-700
 
 CREATE TABLE pacijent(
 id INTEGER PRIMARY KEY,
@@ -55,43 +54,9 @@ sifra VARCHAR (20) NOT NULL UNIQUE,
 naziv VARCHAR (20) NOT NULL UNIQUE
 );
 
-INSERT INTO pacijent VALUES 
-(400, 'Alen', 'Kolić', STR_TO_DATE('17.08.1991.','%d.%m.%Y.'), 'Benešićeva ulica 23', 'M', '0997863487', '94567894', 300),
-(401, 'Ivan', 'Rupčić', STR_TO_DATE('23.02.1962.','%d.%m.%Y.'), 'Zavrtnica 17', 'M', '0916813627', '82631549', 301),
-(402, 'Lissa', 'Ivić', STR_TO_DATE('07.10.2012.','%d.%m.%Y.'), 'Put Duilova 11', 'Ž', '0929430314', '47395186', 302),
-(403, 'Klara', 'Zenzerović', STR_TO_DATE('25.05.1998.','%d.%m.%Y.'), 'Ante Starčevića 23', 'Ž', '0957923190', '82641357', 303),
-(404, 'Sebastijan', 'Milošević', STR_TO_DATE('18.11.1969.','%d.%m.%Y.'), 'Trg kralja Tomislava 15', 'M', '0954359871', '87645123', 304),
-(405, 'Lucas', 'Perić', STR_TO_DATE('14.03.1976.','%d.%m.%Y.'), 'Franje Iskre 13', 'M', '0951893256', '854679137', 305),
-(406, 'Paola', 'Marić', STR_TO_DATE('15.02.1979.','%d.%m.%Y.'), 'Valturska ulica 17', 'Ž', '098754236', '31675167', 306),
-(407, 'Ema', 'Knežević', STR_TO_DATE('24.10.1995.','%d.%m.%Y.'), 'Busoler 18', 'Ž', '0957135987', '24578946', 307),
-(408, 'Tomi', 'Ivković', STR_TO_DATE('28.07.1978.','%d.%m.%Y.'), 'Šijanska cesta 85', 'M', '0951359744', '48751677', 308),
-(409, 'Stefan', 'Markulinčić', STR_TO_DATE('21.10.1978.','%d.%m.%Y.'), 'Mandićeva ulica 15', 'M', '0923697415', '19874537', 309),
-(410, 'Mia', 'Stepančić', STR_TO_DATE('17.06.1985.','%d.%m.%Y.'), 'Ulica Valica3', 'Ž', '091569874', '76894578', 310),
-(411, 'Bruno', 'Marušić', STR_TO_DATE('29.02.1984.','%d.%m.%Y.'), 'Labinska ulica 68', 'M', '0958794651', '87451963', 311),
-(412, 'Iris', 'Orbanić', STR_TO_DATE('19.09.1998.','%d.%m.%Y.'), 'Kolodvorska ulica 58', 'Ž', '0957896542', '84532157', 312),
-(413, 'Nora', 'Marjanović', STR_TO_DATE('12.12.1921.','%d.%m.%Y.'), 'Kandlerova ulica 88', 'Ž', '0953698521', '82648965', 313),
-(414, 'Borna', 'Karlović', STR_TO_DATE('31.01.1965.','%d.%m.%Y.'), 'Ulica Castropola', 'M', '0957894561', '82487563', 314),
-(415, 'Oliver', 'Kinić', STR_TO_DATE('23.02.1999.','%d.%m.%Y.'), 'Flaciusova ulica 12', 'M', '0953754232', '87865147', 315),
-(416, 'Toni', 'Belić', STR_TO_DATE('25.12.1976.','%d.%m.%Y.'), 'Trščanska ulica 14', 'M', '0954235785', '78965478', 316),
-(417, 'Petar', 'Dragojević', STR_TO_DATE('03.04.1978.','%d.%m.%Y.'), 'Ulica Trsine 45', 'M', '0957563219', '65498732', 317),
-(418, 'Boris', 'Vlašić', STR_TO_DATE('28.07.1984.','%d.%m.%Y.'), 'Puljska cesta 19', 'M', '092548796', '815687459', 318),
-(419, 'Matija', 'Mladenović', STR_TO_DATE('13.08.1997.','%d.%m.%Y.'), 'Miševečka ulica 4', 'M', '0918964756', '81587459', 319);
-
-INSERT INTO medicinske_sestre VALUES 
-(500, 'Ivana', 'Ivić',STR_TO_DATE('11.02.1992','%d.%m.%Y.'), 100),
-(501, 'Miliana', 'Milić',STR_TO_DATE('11.02.1999','%d.%m.%Y.'), 101),
-(502, 'Ivana','Marić',STR_TO_DATE('01.02.1998','%d.%m.%Y.'), 102),
-(503, 'Marko', 'Marulić',STR_TO_DATE('13.03.2000','%d.%m.%Y.'), 103),
-(504, 'Žarka', 'Stanić', STR_TO_DATE('05.02.1992','%d.%m.%Y.'), 104);	
-
-INSERT INTO dijagnoza VALUES
-(600, 'nesto' , 'nesto'), 
-(601, 'nesto' , 'nesto'),
-(602, 'nesto' , 'nesto'),
-(603, 'nesto' , 'nesto');  
-(604, 'nesto' , 'nesto'),
 -- ----------------------NEVEN---------------------- --
-
+/*  možda da imamo novu relaciju posjetitelj(id, ime, prezime, broj telefona...) pa da u posjetama se ne ponavlja ime, prezime
+u slučaju da imamo istog posjetitelja više puta */
 
 CREATE TABLE prijem(
 id INTEGER PRIMARY KEY,
@@ -110,7 +75,7 @@ FOREIGN KEY (id_odjel) REFERENCES odjel(id),
 FOREIGN KEY (id_soba) REFERENCES soba(id)
  );
  
- CREATE TABLE posjetitelj(
+ CREATE TABLE posjeta(
  id INTEGER PRIMARY KEY,
  ime VARCHAR(20) NOT NULL,
  prezime VARCHAR(20) NOT NULL,
@@ -212,7 +177,46 @@ INSERT INTO sos_kontakt VALUES
 (318, 'Dragica', 'Marušić', '0972680286'),
 (319, 'Lucija', 'Anić', '0992681124');
 
+-- ---POPUNJAVANJE TABLICA: pacijent, medicinska_setra, dijagnoza--- --
+-- id od 400 do 500
+INSERT INTO pacijent VALUES 
+(400, 'Alen', 'Kolić', STR_TO_DATE('17.08.1991.','%d.%m.%Y.'), 'Benešićeva ulica 23', 'M', '0997863487', '94567894', 300),
+(401, 'Ivan', 'Rupčić', STR_TO_DATE('23.02.1962.','%d.%m.%Y.'), 'Zavrtnica 17', 'M', '0916813627', '82631549', 301),
+(402, 'Lissa', 'Ivić', STR_TO_DATE('07.10.2012.','%d.%m.%Y.'), 'Put Duilova 11', 'Ž', '0929430314', '47395186', 302),
+(403, 'Klara', 'Zenzerović', STR_TO_DATE('25.05.1998.','%d.%m.%Y.'), 'Ante Starčevića 23', 'Ž', '0957923190', '82641357', 303),
+(404, 'Sebastijan', 'Milošević', STR_TO_DATE('18.11.1969.','%d.%m.%Y.'), 'Trg kralja Tomislava 15', 'M', '0954359871', '87645123', 304),
+(405, 'Lucas', 'Perić', STR_TO_DATE('14.03.1976.','%d.%m.%Y.'), 'Franje Iskre 13', 'M', '0951893256', '854679137', 305),
+(406, 'Paola', 'Marić', STR_TO_DATE('15.02.1979.','%d.%m.%Y.'), 'Valturska ulica 17', 'Ž', '098754236', '31675167', 306),
+(407, 'Ema', 'Knežević', STR_TO_DATE('24.10.1995.','%d.%m.%Y.'), 'Busoler 18', 'Ž', '0957135987', '24578946', 307),
+(408, 'Tomi', 'Ivković', STR_TO_DATE('28.07.1978.','%d.%m.%Y.'), 'Šijanska cesta 85', 'M', '0951359744', '48751677', 308),
+(409, 'Stefan', 'Markulinčić', STR_TO_DATE('21.10.1978.','%d.%m.%Y.'), 'Mandićeva ulica 15', 'M', '0923697415', '19874537', 309),
+(410, 'Mia', 'Stepančić', STR_TO_DATE('17.06.1985.','%d.%m.%Y.'), 'Ulica Valica3', 'Ž', '091569874', '76894578', 310),
+(411, 'Bruno', 'Marušić', STR_TO_DATE('29.02.1984.','%d.%m.%Y.'), 'Labinska ulica 68', 'M', '0958794651', '87451963', 311),
+(412, 'Iris', 'Orbanić', STR_TO_DATE('19.09.1998.','%d.%m.%Y.'), 'Kolodvorska ulica 58', 'Ž', '0957896542', '84532157', 312),
+(413, 'Nora', 'Marjanović', STR_TO_DATE('12.12.1921.','%d.%m.%Y.'), 'Kandlerova ulica 88', 'Ž', '0953698521', '82648965', 313),
+(414, 'Borna', 'Karlović', STR_TO_DATE('31.01.1965.','%d.%m.%Y.'), 'Ulica Castropola', 'M', '0957894561', '82487563', 314),
+(415, 'Oliver', 'Kinić', STR_TO_DATE('23.02.1999.','%d.%m.%Y.'), 'Flaciusova ulica 12', 'M', '0953754232', '87865147', 315),
+(416, 'Toni', 'Belić', STR_TO_DATE('25.12.1976.','%d.%m.%Y.'), 'Trščanska ulica 14', 'M', '0954235785', '78965478', 316),
+(417, 'Petar', 'Dragojević', STR_TO_DATE('03.04.1978.','%d.%m.%Y.'), 'Ulica Trsine 45', 'M', '0957563219', '65498732', 317),
+(418, 'Boris', 'Vlašić', STR_TO_DATE('28.07.1984.','%d.%m.%Y.'), 'Puljska cesta 19', 'M', '092548796', '815687459', 318),
+(419, 'Matija', 'Mladenović', STR_TO_DATE('13.08.1997.','%d.%m.%Y.'), 'Miševečka ulica 4', 'M', '0918964756', '81587459', 319);
 
+-- id od 500 do 600
+INSERT INTO medicinske_sestre VALUES 
+(500, 'Ivana', 'Ivić',STR_TO_DATE('11.02.1992','%d.%m.%Y.'), 100),
+(501, 'Miliana', 'Milić',STR_TO_DATE('11.02.1999','%d.%m.%Y.'), 101),
+(502, 'Ivana','Marić',STR_TO_DATE('01.02.1998','%d.%m.%Y.'), 102),
+(503, 'Marko', 'Marulić',STR_TO_DATE('13.03.2000','%d.%m.%Y.'), 103),
+(504, 'Žarka', 'Stanić', STR_TO_DATE('05.02.1992','%d.%m.%Y.'), 104);	
+
+-- id od 600 do 700
+/* provjeriti sifre i nazive dijagnoze da imaju veze s odjelima na kojima se lijece */
+INSERT INTO dijagnoza VALUES
+(600, 'nesto' , 'nesto'), 
+(601, 'nesto' , 'nesto'),
+(602, 'nesto' , 'nesto'),
+(603, 'nesto' , 'nesto');  
+(604, 'nesto' , 'nesto'),
 
 -- ---POPUNJAVANJE TABLICA: soba, lijek, terapija--- --
 
