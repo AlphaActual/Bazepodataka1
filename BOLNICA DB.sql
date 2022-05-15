@@ -79,7 +79,7 @@ id_lijek INTEGER NOT NULL,
 količina INTEGER NOT NULL,
 rok_valjanosti DATE NOT NULL,
 FOREIGN KEY (id_lijek) REFERENCES lijek (id)
--- CHECK (rok_valjanosti > NOW())
+CHECK (rok_valjanosti > STR_TO_DATE('15.05.2020.', '%d.%m.%y.'))
 );
 
 CREATE TABLE terapija (
