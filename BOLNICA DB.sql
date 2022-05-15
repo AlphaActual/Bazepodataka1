@@ -28,6 +28,8 @@ broj_telefona VARCHAR (15) NOT NULL UNIQUE
 --id-jevi 400-500,500-600,600-700
 
 -- ----------------------NEVEN---------------------- --
+/*  možda da imamo novu relaciju posjetitelj(id, ime, prezime, broj telefona...) pa da u posjetama se ne ponavlja ime, prezime
+u slučaju da imamo istog posjetitelja više puta */
 
 CREATE TABLE prijem(
 id INTEGER PRIMARY KEY,
