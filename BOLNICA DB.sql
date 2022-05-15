@@ -27,6 +27,45 @@ broj_telefona VARCHAR (15) NOT NULL UNIQUE
 -- ----------------------NOEL--------------------- --
 --id-jevi 400-500,500-600,600-700
 
+-- ----------------------NEVEN---------------------- --
+
+CREATE TABLE prijem(
+id INTEGER PRIMARY KEY,
+datum_prijema DATE NOT NULL,
+id_pacijent INTEGER NOT NULL,
+id_medicinska_sestra INTEGER NOT NULL,
+id_doktor INTEGER NOT NULL,
+id_dijagnoza INTEGER NOT NULL,
+id_odjel INTEGER NOT NULL,
+id_soba INTEGER NOT NULL,
+FOREIGN KEY (id_pacijent) REFERENCES pacijent(id),
+FOREIGN KEY (id_medicinska_sestra) REFERENCES medicinska_sestra(id),
+FOREIGN KEY (id_doktor) REFERENCES doktor (id),
+FOREIGN KEY (id_dijagnoza) REFERENCES dijagnoza(id),
+FOREIGN KEY (id_odjel) REFERENCES odjel(id),
+FOREIGN KEY (id_soba) REFERENCES soba(id)
+ );
+ 
+ CREATE TABLE posjeta(
+ id INTEGER PRIMARY KEY,
+ ime VARCHAR(20) NOT NULL,
+ prezime VARCHAR(20) NOT NULL,
+ temperatura NUMERIC(2,1) NOT NULL,
+ datum DATE NOT NULL,
+ vrijeme_dolaska TIME NOT NULL,
+ vrijeme_odlaska TIME NOT NULL
+ );
+ 
+ CREATE TABLE raspored_opreme(
+ id INTEGER PRIMARY KEY,
+ sifra VARCHAR(10) NOT NULL UNIQUE,
+ naziv VARCHAR(20) NOT NULL,
+ datum_zaprimanja DATE NOT NULL,
+ datum_otpisa DATE,
+ kolicina INTEGER NOT NULL,
+ id_soba INTEGER NOT NULL,
+ FOREIGN KEY (id_soba) REFERENCES soba(id)
+  );
 
 -- ----------------------TIN--------------------- --
 
