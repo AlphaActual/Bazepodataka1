@@ -45,15 +45,21 @@ id INTEGER PRIMARY KEY,
 vrsta VARCHAR (20) NOT NULL,
 proizvodac VARCHAR (20) NOT NULL,
 naziv VARCHAR (20) NOT NULL,
+);
+
+CREATE TABLE stanje_lijekova (
+id INTEGER PRIMARY KEY,
+id_lijek INTEGER NOT NULL,
 količina INTEGER NOT NULL,
 rok_valjanosti DATE NOT NULL
-
+FOREIGN KEY (id_lijek) REFERENCES lijek (id),
 );
 
 CREATE TABLE terapija (
 id INTEGER PRIMARY KEY,
 id_pacijent INTEGER NOT NULL,
 id_lijek INTEGER NOT NULL,
+uporaba TEXT
 FOREIGN KEY (id_pacijent) REFERENCES pacijent (id),
 FOREIGN KEY (id_lijek) REFERENCES lijek (id)
 );
@@ -171,7 +177,88 @@ INSERT INTO soba VALUES
 
 -- id od 800 do 900
 INSERT INTO lijek VALUES
-(800, 'Anelgetik', 'Bayer', 'Aspirin', 503, STR_TO_DATE('22.08.2024.','%d.%m.%Y.'),
-(801, 'Anelgetik', 'Bayer', 'Aspirin', 104, STR_TO_DATE('20.03.2022.','%d.%m.%Y.'),
-(802, 'Anelgetik', 'Alexion', 'Morfin', 1372, STR_TO_DATE('17.09.2024.','%d.%m.%Y.');
---WORK IN PROGRESS
+(800, 'Anelgetik', 'Bayer', 'Aspirin'),
+(801, 'Anelgetik', 'Alexion', 'Morfin'),
+(802, 'Anelgetik', 'Baxter', 'Naproxen'),
+(803, 'Anelgetik', 'Chemnovatic', 'Nefopam'),
+(804, 'Anelgetik', 'Chemnovatic', 'Ketamine'),
+
+(805, 'Antiaritmik', 'Baxter', 'Bisoprolol'),
+(806, 'Antiaritmik', 'Alexion', 'Atenolol'),
+(807, 'Antiaritmik', 'Ethypharm', 'Digoxin'),
+(808, 'Antiaritmik', 'Chemnovatic', 'Adenosine'),
+(809, 'Antiaritmik', 'Alexion', 'Diltiazem'),
+
+(810, 'Antibiotik', 'Bayer', 'Amoxicillin'),
+(811, 'Antibiotik', 'Bayer', 'Flucloxacillin'),
+(812, 'Antibiotik', 'Bayer', 'Meropenem'),
+(813, 'Antibiotik', 'Alexion', 'Vancomycin'),
+(814, 'Antibiotik', 'Alexion', 'Gentamycin'),
+(815, 'Antibiotik', 'Ethypharm', 'Clarithromycin'),
+(816, 'Antibiotik', 'Ethypharm', 'Doxycycline'),
+
+(817, 'Antikoagulans', 'Chemnovatic', 'Warfarin'),
+(818, 'Antikoagulans', 'Ethypharm', 'Rivaroxaban'),
+(819, 'Antikoagulans', 'Ethypharm', 'Enoxaparin'),
+(820, 'Antikoagulans', 'Alexion', 'Heparin'),
+
+(821, 'Sedativ', 'Baxter', 'Zopiclone'),
+(822, 'Sedativ', 'Ethypharm', 'Haloperidol'),
+(823, 'Sedativ', 'Ethypharm', 'Midazolam'),
+
+(824, 'Antiemetik', 'Chemnovatic', 'Cyclizine'),
+(825, 'Antiemetik', 'Chemnovatic', 'Ondansetron'),
+(826, 'Antiemetik', 'Chemnovatic', 'Metoclopramide');
+
+-- id od 900 do 1000
+INSERT INTO stanje_lijekova VALUES
+(900, 800, 503, STR_TO_DATE('22.08.2024.','%d.%m.%Y.')),
+(901, 800, 104, STR_TO_DATE('20.03.2022.','%d.%m.%Y.')),
+(902, 801, 1372, STR_TO_DATE('17.09.2024.','%d.%m.%Y.')),
+(903, 802, 642, STR_TO_DATE('01.10.2023.','%d.%m.%Y.')),
+(904, 803, 216, STR_TO_DATE('12.07.2025.','%d.%m.%Y.')),
+(905, 804, 1201, STR_TO_DATE('15.09.2022.','%d.%m.%Y.')),
+
+(906, 805, 610, STR_TO_DATE('16.02.2023.','%d.%m.%Y.')),
+(907, 805, 102, STR_TO_DATE('12.02.2022.','%d.%m.%Y.')),
+(908, 806, 517, STR_TO_DATE('18.06.2025.','%d.%m.%Y.')),
+(909, 806, 54, STR_TO_DATE('18.05.2022.','%d.%m.%Y.')),
+(910, 807, 354, STR_TO_DATE('16.07.2026.','%d.%m.%Y.')),
+(911, 807, 32, STR_TO_DATE('10.08.2021.','%d.%m.%Y.')),
+(912, 808, 725, STR_TO_DATE('01.10.2025.','%d.%m.%Y.')),
+(913, 808, 478, STR_TO_DATE('21.11.2024.','%d.%m.%Y.')),
+(914, 809, 1078, STR_TO_DATE('11.11.2025.','%d.%m.%Y.')),
+(915, 809, 234, STR_TO_DATE('14.10.2023.','%d.%m.%Y.')),
+
+(916, 810, 2146, STR_TO_DATE('01.12.2026.','%d.%m.%Y.')),
+(917, 811, 1560, STR_TO_DATE('02.09.2024.','%d.%m.%Y.')),
+(918, 812, 8756, STR_TO_DATE('02.07.2022.','%d.%m.%Y.')),
+(919, 813, 312, STR_TO_DATE('12.04.2023.','%d.%m.%Y.')),
+(920, 814, 890, STR_TO_DATE('07.09.2022.','%d.%m.%Y.')),
+(921, 814, 101, STR_TO_DATE('03.09.2021.','%d.%m.%Y.')),
+(922, 815, 531, STR_TO_DATE('12.12.2023.','%d.%m.%Y.')),
+(923, 816, 320, STR_TO_DATE('03.07.2024.','%d.%m.%Y.')),
+
+(924, 817, 753, STR_TO_DATE('16.07.2026.','%d.%m.%Y.')),
+(925, 818, 980, STR_TO_DATE('22.03.2023.','%d.%m.%Y.')),
+(926, 819, 340, STR_TO_DATE('22.06.2024.','%d.%m.%Y.')),
+(927, 820, 650, STR_TO_DATE('10.09.2022.','%d.%m.%Y.')),
+
+(928, 821, 214, STR_TO_DATE('05.10.2023.','%d.%m.%Y.')),
+(929, 822, 456, STR_TO_DATE('05.12.2026.','%d.%m.%Y.')),
+(930, 822, 356, STR_TO_DATE('05.07.2022.','%d.%m.%Y.')),
+(931, 823, 760, STR_TO_DATE('04.09.2024.','%d.%m.%Y.')),
+
+(932, 824, 630, STR_TO_DATE('07.10.2022.','%d.%m.%Y.')),
+(933, 825, 120, STR_TO_DATE('03.06.2024.','%d.%m.%Y.')),
+(934, 825, 236, STR_TO_DATE('03.08.2026.','%d.%m.%Y.')),
+(935, 826, 601, STR_TO_DATE('02.04.2025.','%d.%m.%Y.'));
+
+-- id od 1000 do 1100
+INSERT INTO terapija VALUES
+(1000,400,812, '2 tablete dnevno, tjedan dana'),
+(1001,401,816, '1 tableta svakih 6 sati, tri dana'),
+(1002,402,806, '1 tableta dnevno'),
+(1003,403,803, 'po potrebi'),
+(1004,404,810, 'svakih 8 sati jedna tableta');
+--KORIGIRATI KAD SE UNESU PACIJENTI
