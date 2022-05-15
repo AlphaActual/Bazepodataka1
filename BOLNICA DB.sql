@@ -79,6 +79,7 @@ id_lijek INTEGER NOT NULL,
 količina INTEGER NOT NULL,
 rok_valjanosti DATE NOT NULL,
 FOREIGN KEY (id_lijek) REFERENCES lijek (id)
+-- CHECK (rok_valjanosti > NOW())
 );
 
 CREATE TABLE terapija (
@@ -149,13 +150,13 @@ INSERT INTO odjel VALUES
 -- id od 200 do 300
 INSERT INTO doktor VALUES 
 (200, 'Krešimira', 'Paspalj', STR_TO_DATE('11.01.1978.','%d.%m.%Y.'), 102),
-(201, 'Noris', 'Grubor', STR_TO_DATE('03.05.1982.','%d.%m.%Y.'), 104),
-(202, 'Šime', 'Ljubić', STR_TO_DATE('09.12.1973.','%d.%m.%Y.'), 103),
+(201, 'Noris', 'Grubor', STR_TO_DATE('03.05.1982.','%d.%m.%Y.'), 100),
+(202, 'Šime', 'Ljubić', STR_TO_DATE('09.12.1973.','%d.%m.%Y.'), 101),
 (203, 'Jasmina', 'Mejak', STR_TO_DATE('03.06.1985.','%d.%m.%Y.'), 101),
 (204, 'Mauro', 'Tomasov', STR_TO_DATE('24.07.1970.','%d.%m.%Y.'), 100),
 (205, 'Jan', 'Nikolić', STR_TO_DATE('22.08.1962.','%d.%m.%Y.'), 100),
 (206, 'Gabrijel', 'Popović', STR_TO_DATE('01.05.1976.','%d.%m.%Y.'), 101),
-(207, 'Božidarka', 'Obad', STR_TO_DATE('03.06.1990.','%d.%m.%Y.'), 103),
+(207, 'Božidarka', 'Obad', STR_TO_DATE('03.06.1990.','%d.%m.%Y.'), 100),
 (208, 'Jelena', 'Debeljak', STR_TO_DATE('28.03.1988.','%d.%m.%Y.'), 102),
 (209, 'Rudolf', 'Kolar', STR_TO_DATE('16.09.1967.','%d.%m.%Y.'), 101);
 -- id od 300 do 400
@@ -210,8 +211,8 @@ INSERT INTO medicinske_sestre VALUES
 (500, 'Ivana', 'Ivić',STR_TO_DATE('11.02.1992','%d.%m.%Y.'), 100),
 (501, 'Miliana', 'Milić',STR_TO_DATE('11.02.1999','%d.%m.%Y.'), 101),
 (502, 'Ivana','Marić',STR_TO_DATE('01.02.1998','%d.%m.%Y.'), 102),
-(503, 'Marko', 'Marulić',STR_TO_DATE('13.03.2000','%d.%m.%Y.'), 103),
-(504, 'Žarka', 'Stanić', STR_TO_DATE('05.02.1992','%d.%m.%Y.'), 104);	
+(503, 'Marko', 'Marulić',STR_TO_DATE('13.03.2000','%d.%m.%Y.'), 100),
+(504, 'Žarka', 'Stanić', STR_TO_DATE('05.02.1992','%d.%m.%Y.'), 102);	
 
 -- id od 600 do 700
 /* provjeriti sifre i nazive dijagnoze da imaju veze s odjelima na kojima se lijece */
