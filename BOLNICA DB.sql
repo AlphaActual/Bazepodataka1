@@ -135,8 +135,11 @@ FOREIGN KEY (id_soba) REFERENCES soba(id)
   );
   
   CREATE TABLE stanje_opreme(
-  id 
-   
+  id INTEGER PRIMARY KEY,
+  id_raspored_opreme INTEGER NOT NULL,
+  količina INTEGER NOT NULL;
+  FOREIGN KEY (id_raspored_opreme) REFERENCES raspored_opreme(ID)
+    
   ):
 
 -- ---POPUNJAVANJE TABLICA: odjel, doktor, sos_kontakt--- --
