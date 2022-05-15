@@ -228,63 +228,19 @@ INSERT INTO dijagnoza VALUES
 INSERT INTO soba VALUES
 
 -- sobe odjel 100
-(700, 001, 6,'slobodno', 100),
-(701, 002, 6,'popunjeno', 100),
-(702, 003, 6,'popunjeno', 100),
-(703, 004, 6,'nedostupno', 100),
-(704, 005, 6,'slobodno', 100),
+(700, 004, 2,'slobodno', 100),
+(701, 005, 2,'popunjeno', 100),
+(702, 006, 2,'popunjeno', 100),
 
 -- sobe odjel 101
-(705, 006, 3,'slobodno', 101),
-(706, 007, 3,'slobodno', 101),
-(707, 008, 3,'popunjeno', 101),
-(708, 009, 3,'slobodno', 101),
-(709, 010, 3,'popunjeno', 101),
-(710, 011, 5,'slobodno', 101),
-(711, 012, 5,'slobodno', 101),
-(712, 013, 6,'slobodno', 101),
-(713, 014, 6,'nedostupno', 101),
-(714, 015, 4,'nedostupno', 101),
-(715, 016, 5,'slobodno', 101),
-(716, 017, 5,'slobodno', 101),
+(703, 007, 2,'slobodno', 101),
+(704, 005, 2,'nedostupno', 101),
+(705, 009, 2,'popunjeno', 101),
 
 -- sobe odjel 102
-(717, 018, 5,'popunjeno', 102),
-(718, 019, 5,'popunjeno', 102),
-(719, 020, 5,'slobodno', 102),
-(720, 021, 5,'slobodno', 102),
-(721, 022, 6,'popunjeno', 102),
-(722, 023, 6,'slobodno', 102),
-(723, 024, 6,'popunjeno', 102),
-(724, 025, 4,'nedostupno', 102),
-
--- sobe odjel 103
-
-(725, 026, 3,'slobodno', 103),
-(726, 027, 3,'slobodno', 103),
-(727, 028, 4,'popunjeno', 103),
-(728, 029, 3,'slobodno', 103),
-(729, 030, 3,'popunjeno', 103),
-(730, 031, 5,'slobodno', 103),
-(731, 032, 5,'slobodno', 103),
-(732, 033, 6,'slobodno', 103),
-(733, 034, 6,'nedostupno', 103),
-(734, 035, 4,'nedostupno', 103),
-(735, 036, 3,'nedostupno', 103),
-(736, 037, 5,'slobodno', 103),
-(737, 038, 3,'slobodno', 103),
-(738, 039, 3,'popunjeno', 103),
-(739, 040, 1,'nedostupno', 103),
-(740, 041, 5,'slobodno', 103),
-(741, 042, 6,'slobodno', 103),
-
--- sobe odjel 104
-
-(742, 043, 3,'slobodno', 104),
-(743, 044, 6,'slobodno', 104),
-(744, 045, 6,'slobodno', 104),
-(745, 046, 4,'popunjeno', 104),
-(746, 047, 3,'slobodno', 104);
+(706, 001, 2,'popunjeno', 102),
+(707, 002, 2,'nedostupno', 102),
+(708, 003, 2,'slobodno', 102);
 
 -- id od 800 do 900
 INSERT INTO lijek VALUES
@@ -367,9 +323,13 @@ INSERT INTO stanje_lijekova VALUES
 
 -- id od 1000 do 1100
 INSERT INTO terapija VALUES
-(1000,400,812, '2 tablete dnevno, tjedan dana'),
-(1001,401,816, '1 tableta svakih 6 sati, tri dana'),
-(1002,402,806, '1 tableta dnevno'),
-(1003,403,803, 'po potrebi'),
-(1004,404,810, 'svakih 8 sati jedna tableta');
--- KORIGIRATI KAD SE UNESU PACIJENTI
+(1000, 400, 812, '2 tablete dnevno, tjedan dana'),
+(1001, 403, 816, '1 tableta svakih 6 sati, tri dana'),
+(1002, 407, 806, '1 tableta dnevno'),
+(1003, 408, 803, '2 tablete prije rucka, 5 dana'),
+(1004, 411, 802, '1 tableta dnevno'),
+(1005, 413, 813, 'po potrebi'),
+(1006, 414, 807, '1 tableta svakih 7 sati, 6 dana'),
+(1007, 415, 802, '2 tablete svaki dan u razmaku od 8 sati'),
+(1008, 417, 800, 'po potrebi'),
+(1009, 419, 817, 'svakih 8 sati jedna tableta');
