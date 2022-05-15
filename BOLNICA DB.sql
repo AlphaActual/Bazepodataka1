@@ -50,11 +50,9 @@ FOREIGN KEY (id_odjel) REFERENCES odjel (id)
 
 CREATE TABLE dijagnoza(
 id INTEGER PRIMARY KEY,
-sifra VARCHAR (20) NOT NULL UNIQUE,
-naziv VARCHAR (20) NOT NULL UNIQUE
+sifra VARCHAR (20) NOT NULL,
+naziv VARCHAR (20) NOT NULL
 );
-
-
 
 -- ----------------------TIN--------------------- --
 
@@ -72,22 +70,22 @@ CREATE TABLE lijek (
 id INTEGER PRIMARY KEY,
 vrsta VARCHAR (20) NOT NULL,
 proizvodac VARCHAR (20) NOT NULL,
-naziv VARCHAR (20) NOT NULL,
+naziv VARCHAR (20) NOT NULL
 );
 
 CREATE TABLE stanje_lijekova (
 id INTEGER PRIMARY KEY,
 id_lijek INTEGER NOT NULL,
 količina INTEGER NOT NULL,
-rok_valjanosti DATE NOT NULL
-FOREIGN KEY (id_lijek) REFERENCES lijek (id),
+rok_valjanosti DATE NOT NULL,
+FOREIGN KEY (id_lijek) REFERENCES lijek (id)
 );
 
 CREATE TABLE terapija (
 id INTEGER PRIMARY KEY,
 id_pacijent INTEGER NOT NULL,
 id_lijek INTEGER NOT NULL,
-uporaba TEXT
+uporaba TEXT,
 FOREIGN KEY (id_pacijent) REFERENCES pacijent (id),
 FOREIGN KEY (id_lijek) REFERENCES lijek (id)
 );
@@ -100,13 +98,13 @@ CREATE TABLE prijem(
 id INTEGER PRIMARY KEY,
 datum_prijema DATE NOT NULL,
 id_pacijent INTEGER NOT NULL,
-id_medicinska_sestra INTEGER NOT NULL,
+id_medicinske_sestre INTEGER NOT NULL,
 id_doktor INTEGER NOT NULL,
 id_dijagnoza INTEGER NOT NULL,
 id_odjel INTEGER NOT NULL,
 id_soba INTEGER NOT NULL,
 FOREIGN KEY (id_pacijent) REFERENCES pacijent(id),
-FOREIGN KEY (id_medicinska_sestra) REFERENCES medicinska_sestra(id),
+FOREIGN KEY (id_medicinske_sestre) REFERENCES medicinske_sestre(id),
 FOREIGN KEY (id_doktor) REFERENCES doktor (id),
 FOREIGN KEY (id_dijagnoza) REFERENCES dijagnoza(id),
 FOREIGN KEY (id_odjel) REFERENCES odjel(id),
@@ -134,23 +132,20 @@ FOREIGN KEY (id_soba) REFERENCES soba(id)
  FOREIGN KEY (id_soba) REFERENCES soba(id)
   );
   
-  CREATE TABLE stanje_opreme(
+   CREATE TABLE stanje_opreme(
   id INTEGER PRIMARY KEY,
   id_raspored_opreme INTEGER NOT NULL,
-  količina INTEGER NOT NULL;
+  količina INTEGER NOT NULL,
   FOREIGN KEY (id_raspored_opreme) REFERENCES raspored_opreme(id)
-    
-  ):
+);
 
 -- ---POPUNJAVANJE TABLICA: odjel, doktor, sos_kontakt--- --
 
 -- id od 100 do 200
 INSERT INTO odjel VALUES
-(100, 'Kardiologija', 4, 5),
-(101, 'Intenzivno liječenje', 5, 12),
-(102, 'Ortopedija', 3, 8),
-(103, 'Pedijatrija', 1, 17),
-(104, 'Oftalmologija', 2, 5);
+(100, 'Kardiologija', 2, 3),
+(101, 'Intenzivno liječenje', 3, 3),
+(102, 'Ortopedija', 1, 3);
 -- id od 200 do 300
 INSERT INTO doktor VALUES 
 (200, 'Krešimira', 'Paspalj', STR_TO_DATE('11.01.1978.','%d.%m.%Y.'), 102),
@@ -224,8 +219,8 @@ INSERT INTO dijagnoza VALUES
 (600, 'nesto' , 'nesto'), 
 (601, 'nesto' , 'nesto'),
 (602, 'nesto' , 'nesto'),
-(603, 'nesto' , 'nesto');  
-(604, 'nesto' , 'nesto'),
+(603, 'nesto' , 'nesto'),
+(604, 'nesto' , 'nesto');
 
 -- ---POPUNJAVANJE TABLICA: soba, lijek, terapija--- --
 
@@ -377,4 +372,4 @@ INSERT INTO terapija VALUES
 (1002,402,806, '1 tableta dnevno'),
 (1003,403,803, 'po potrebi'),
 (1004,404,810, 'svakih 8 sati jedna tableta');
---KORIGIRATI KAD SE UNESU PACIJENTI
+-- KORIGIRATI KAD SE UNESU PACIJENTI
