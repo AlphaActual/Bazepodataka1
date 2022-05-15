@@ -91,8 +91,7 @@ INSERT INTO dijagnoza VALUES
 (603, 'nesto' , 'nesto');  
 (604, 'nesto' , 'nesto'),
 -- ----------------------NEVEN---------------------- --
-/*  možda da imamo novu relaciju posjetitelj(id, ime, prezime, broj telefona...) pa da u posjetama se ne ponavlja ime, prezime
-u slučaju da imamo istog posjetitelja više puta */
+
 
 CREATE TABLE prijem(
 id INTEGER PRIMARY KEY,
@@ -111,7 +110,7 @@ FOREIGN KEY (id_odjel) REFERENCES odjel(id),
 FOREIGN KEY (id_soba) REFERENCES soba(id)
  );
  
- CREATE TABLE posjeta(
+ CREATE TABLE posjetitelj(
  id INTEGER PRIMARY KEY,
  ime VARCHAR(20) NOT NULL,
  prezime VARCHAR(20) NOT NULL,
