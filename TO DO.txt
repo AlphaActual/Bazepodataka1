@@ -1,0 +1,11 @@
+ISPUNITI:
+- stanje_opreme
+- raspored_opreme
+- prijem
+- posjeta
+- dijagnoza -> popuniti sa 'ispavnim' vrijednostima
+
+-> iz prijema izbrisati id_odjel
+
+-> IZBRISANI SU ODJEL 103 I 104
+-> MAKNUT JE UNIQUE IZ DIJAGNOZA (sifra, naziv)
