@@ -54,6 +54,44 @@ sifra VARCHAR (20) NOT NULL UNIQUE,
 naziv VARCHAR (20) NOT NULL UNIQUE
 );
 
+
+
+-- ----------------------TIN--------------------- --
+
+
+CREATE TABLE soba (
+id INTEGER PRIMARY KEY,
+broj_sobe INTEGER NOT NULL,
+broj_kreveta INTEGER NOT NULL,
+stanje VARCHAR (20) NOT NULL,
+id_odjel INTEGER NOT NULL,
+FOREIGN KEY (id_odjel) REFERENCES odjel (id)
+);
+
+CREATE TABLE lijek (
+id INTEGER PRIMARY KEY,
+vrsta VARCHAR (20) NOT NULL,
+proizvodac VARCHAR (20) NOT NULL,
+naziv VARCHAR (20) NOT NULL,
+);
+
+CREATE TABLE stanje_lijekova (
+id INTEGER PRIMARY KEY,
+id_lijek INTEGER NOT NULL,
+količina INTEGER NOT NULL,
+rok_valjanosti DATE NOT NULL
+FOREIGN KEY (id_lijek) REFERENCES lijek (id),
+);
+
+CREATE TABLE terapija (
+id INTEGER PRIMARY KEY,
+id_pacijent INTEGER NOT NULL,
+id_lijek INTEGER NOT NULL,
+uporaba TEXT
+FOREIGN KEY (id_pacijent) REFERENCES pacijent (id),
+FOREIGN KEY (id_lijek) REFERENCES lijek (id)
+);
+
 -- ----------------------NEVEN---------------------- --
 /*  možda da imamo novu relaciju posjetitelj(id, ime, prezime, broj telefona...) pa da u posjetama se ne ponavlja ime, prezime
 u slučaju da imamo istog posjetitelja više puta */
@@ -95,43 +133,11 @@ FOREIGN KEY (id_soba) REFERENCES soba(id)
  id_soba INTEGER NOT NULL,
  FOREIGN KEY (id_soba) REFERENCES soba(id)
   );
-
--- ----------------------TIN--------------------- --
-
-
-CREATE TABLE soba (
-id INTEGER PRIMARY KEY,
-broj_sobe INTEGER NOT NULL,
-broj_kreveta INTEGER NOT NULL,
-stanje VARCHAR (20) NOT NULL,
-id_odjel INTEGER NOT NULL,
-FOREIGN KEY (id_odjel) REFERENCES odjel (id)
-);
-
-CREATE TABLE lijek (
-id INTEGER PRIMARY KEY,
-vrsta VARCHAR (20) NOT NULL,
-proizvodac VARCHAR (20) NOT NULL,
-naziv VARCHAR (20) NOT NULL,
-);
-
-CREATE TABLE stanje_lijekova (
-id INTEGER PRIMARY KEY,
-id_lijek INTEGER NOT NULL,
-količina INTEGER NOT NULL,
-rok_valjanosti DATE NOT NULL
-FOREIGN KEY (id_lijek) REFERENCES lijek (id),
-);
-
-CREATE TABLE terapija (
-id INTEGER PRIMARY KEY,
-id_pacijent INTEGER NOT NULL,
-id_lijek INTEGER NOT NULL,
-uporaba TEXT
-FOREIGN KEY (id_pacijent) REFERENCES pacijent (id),
-FOREIGN KEY (id_lijek) REFERENCES lijek (id)
-);
-
+  
+  CREATE TABLE stanje_opreme(
+  id 
+   
+  ):
 
 -- ---POPUNJAVANJE TABLICA: odjel, doktor, sos_kontakt--- --
 
