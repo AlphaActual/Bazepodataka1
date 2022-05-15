@@ -235,7 +235,7 @@ INSERT INTO soba VALUES
 
 -- sobe odjel 101
 (703, 007, 2,'slobodno', 101),
-(704, 005, 2,'nedostupno', 101),
+(704, 008, 2,'nedostupno', 101),
 (705, 009, 2,'popunjeno', 101),
 
 -- sobe odjel 102
