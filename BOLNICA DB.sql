@@ -102,13 +102,11 @@ id_pacijent INTEGER NOT NULL,
 id_medicinske_sestre INTEGER NOT NULL,
 id_doktor INTEGER NOT NULL,
 id_dijagnoza INTEGER NOT NULL,
-id_odjel INTEGER NOT NULL,
 id_soba INTEGER NOT NULL,
 FOREIGN KEY (id_pacijent) REFERENCES pacijent(id),
 FOREIGN KEY (id_medicinske_sestre) REFERENCES medicinske_sestre(id),
 FOREIGN KEY (id_doktor) REFERENCES doktor (id),
 FOREIGN KEY (id_dijagnoza) REFERENCES dijagnoza(id),
-FOREIGN KEY (id_odjel) REFERENCES odjel(id),
 FOREIGN KEY (id_soba) REFERENCES soba(id)
  );
  
@@ -122,7 +120,7 @@ FOREIGN KEY (id_soba) REFERENCES soba(id)
  vrijeme_odlaska TIME NOT NULL
  );
  
- CREATE TABLE raspored_opreme(
+ CREATE TABLE oprema(
  id INTEGER PRIMARY KEY,
  sifra VARCHAR(10) NOT NULL UNIQUE,
  naziv VARCHAR(20) NOT NULL,
@@ -334,3 +332,53 @@ INSERT INTO terapija VALUES
 (1007, 415, 802, '2 tablete svaki dan u razmaku od 8 sati'),
 (1008, 417, 800, 'po potrebi'),
 (1009, 419, 817, 'svakih 8 sati jedna tableta');
+
+-- prijem([id], datum_prijema, {id_pacijent}, {id_medicinska_sestra}, {id_doktor}, {id_dijagnoza},  {id_soba})
+INSERT INTO prijem VALUES
+(1100, STR_TO_DATE('22.08.2022.','%d.%m.%Y.'), 400, 500,200,600,700 ),
+(1101, STR_TO_DATE('23.08.2022.','%d.%m.%Y.'), 401, 500,200,600,700 ),
+(1102, STR_TO_DATE('24.08.2022.','%d.%m.%Y.'), 402, 503,200,600,702 ),
+(1103, STR_TO_DATE('25.08.2022.','%d.%m.%Y.'), 403, 503,200,600,702 ),
+(1104, STR_TO_DATE('26.08.2022.','%d.%m.%Y.'), 404, 501,200,600,705 ),
+(1105, STR_TO_DATE('27.08.2022.','%d.%m.%Y.'), 405, 501,200,600,705 ),
+(1106, STR_TO_DATE('28.08.2022.','%d.%m.%Y.'), 406, 502,200,600,706 ),
+(1107, STR_TO_DATE('29.08.2022.','%d.%m.%Y.'), 407, 502,200,600,706 ),
+(1108, STR_TO_DATE('22.08.2022.','%d.%m.%Y.'), 408, 504,200,600,708 ),
+(1109, STR_TO_DATE('23.08.2022.','%d.%m.%Y.'), 409, 504,200,600,708 ),
+-- moram nastavit sobe samo moramo dodati još soba
+(1110, STR_TO_DATE('24.08.2022.','%d.%m.%Y.'), 410, 500,200,600,701 ),
+(1111, STR_TO_DATE('25.08.2022.','%d.%m.%Y.'), 411, 500,200,600,701 ),
+(1112, STR_TO_DATE('26.08.2022.','%d.%m.%Y.'), 412, 500,200,600,701 ),
+(113, STR_TO_DATE('27.08.2022.','%d.%m.%Y.'), 413, 500,200,600,701 ),
+(1114, STR_TO_DATE('28.08.2022.','%d.%m.%Y.'), 414, 500,200,600,701 ),
+(1115, STR_TO_DATE('29.08.2022.','%d.%m.%Y.'), 415, 500,200,600,701 ),
+(1116, STR_TO_DATE('30.08.2022.','%d.%m.%Y.'), 416, 500,200,600,701 ),
+(1117, STR_TO_DATE('23.08.2022.','%d.%m.%Y.'), 417, 500,200,600,701 ),
+(1118, STR_TO_DATE('22.08.2022.','%d.%m.%Y.'), 418, 500,200,600,701 ),
+(1119, STR_TO_DATE('20.08.2022.','%d.%m.%Y.'), 419, 500,200,600,701 );
+
+-- posjeta([id], ime, prezime, temperatura, datum, vrijeme_dolaska, vrijeme_odlaska, {id_pacijent})
+INSERT INTO posjeta VALUES
+(1100,'Zora', 'Kunstl',36.5,STR_TO_TIME('22.08.2022.','%d.%m.%Y.'), STR_TO_TIME('10:00'),STR_TO_TIME('10:30'),400)
+(1100,'Stanko', 'Sutarić',36.5,STR_TO_TIME('23.08.2022.','%d.%m.%Y.'), STR_TO_TIME('11:00'),STR_TO_TIME('11:30'),401)
+(1100,'Issa', 'Biševac',36.5,STR_TO_TIME('24.08.2022.','%d.%m.%Y.'), STR_TO_TIME('12:30'),STR_TO_TIME('12:35'),402)
+(1100,'Elenora', 'Delfar',36.5,STR_TO_TIME('25.08.2022.','%d.%m.%Y.'), STR_TO_TIME('11:00'),STR_TO_TIME('11:30'),403)
+(1100,'Aden', 'Kotolaš',36.5,STR_TO_TIME('26.08.2022.','%d.%m.%Y.'), STR_TO_TIME('12:00'),STR_TO_TIME('12:30'),404)
+(1100,'Vojmil', 'Novaković',36.5,STR_TO_TIME('27.08.2022.','%d.%m.%Y.'), STR_TO_TIME('10:00'),STR_TO_TIME('10:30'),405)
+(1100,'Ljubica', 'Topić',36.5,STR_TO_TIME('28.08.2022.','%d.%m.%Y.'), STR_TO_TIME('10:00'),STR_TO_TIME('10:30'),406)
+
+(1100,'Jopa', 'Stanic',36.5,STR_TO_TIME('29.08.2022.','%d.%m.%Y.'), STR_TO_TIME('18:00'),STR_TO_TIME('18:30'),407)
+(1100,'Zorko', 'Kunac',36.5,STR_TO_TIME('22.08.2022.','%d.%m.%Y.'), STR_TO_TIME('17:00'),STR_TO_TIME('17:30'),408)
+(1100,'Iva', 'Vanić',36.5,STR_TO_TIME('23.08.2022.','%d.%m.%Y.'), STR_TO_TIME('11:00'),STR_TO_TIME('12:30'),409)
+(1100,'Maja', 'Prijatel',36.5,STR_TO_TIME('24.08.2022.','%d.%m.%Y.'), STR_TO_TIME('13:00'),STR_TO_TIME('13:30'),410)
+(1100,'Kuma', 'Kumi',36.5,STR_TO_TIME('25.08.2022.','%d.%m.%Y.'), STR_TO_TIME('14:00'),STR_TO_TIME('14:30'),411)
+(1100,'Jasna', 'Zelić',36.5,STR_TO_TIME('26.08.2022.','%d.%m.%Y.'), STR_TO_TIME('16:00'),STR_TO_TIME('16:30'),412)
+(1100,'Jugoslav', 'Čerišnja',36.5,STR_TO_TIME('27.08.2022.','%d.%m.%Y.'), STR_TO_TIME('12:00'),STR_TO_TIME('12:30'),413)
+ ;
+ 
+  -- id,sifra,naziv, datum_zaprimanja, datum_otpisa, kolicina,id_soba
+ INSERT INTO oprema VALUES
+ (1200, 'abc1', 'EKG', 20.02.2002
+
+INSERT INTO stanje_opreme VALUES
+  
