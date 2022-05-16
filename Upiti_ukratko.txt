@@ -1,6 +1,18 @@
 -- -----TIN------ --
---1) Svi pacijenti koji su primljeni datuma X kod doktora Y a koji jo� nisu primili terapiju
+--1) Svi pacijenti koji su primljeni datuma X kod doktora Y a koji još nisu primili terapiju
 --2) Popis svih pacijenata i ljudi koji su bili u doticaju s njima(doktori,sestre,posjetitelji) na katu broj 2 na kojem je izbila zaraza nakon datuma X
 --3) Kolicine lijekova po nazivima kojima istice rok trajanja za manje od godinu dana
 --4) Popis svih doktora koji su prepisali lijek X pacijentima prije datuma Y
---5) Popis svih �enskih pacijenata kojima su prepisani Antiaritmici
+--5) Popis svih ženskih pacijenata kojima su prepisani Antiaritmici
+
+-- ----MARIJA----- --
+1. Popis opreme koju koriste medicinske sestre.
+(id opreme, sifra opreme, naziv opreme, id medicinske sestre, ime && prezime medicinske sestre)
+2. Popis sos kontakata svih pacijenata sa dijagnozom 'nekom'.
+(id sos kontakta, ime && prezime sos kontakta, broj telefona sos kontakta, ime i prezime pacijenta)
+3. Ukupan broj pacijenata za koje je zadužen pojedini doktor.
+(id doktora, ime && prezime doktora, odjel doktora, broj pacijenata)
+4. Popis svih lijekova koje su dobili pacijenti u X sobi (za koje je zadužena Y medicinska sestra), a kojima je datum isteka nakon Z datuma.
+(id lijeka, vrsta lijeka, proizvodac lijeka, naziv lijeka, datum isteka lijeka)
+5. Popis pacijenata sa brojem posjeta (odvojeno posjete sos kontakata i onih koji nisu sos kontakti).
+(id pacijenta, ime && prezime pacijenta, datum rodenja pacijenta, broj posjeta == sos, broj posjeta != sos)
