@@ -1,0 +1,6 @@
+-- -----TIN------ --
+--1) Svi pacijenti koji su primljeni datuma X kod doktora Y a koji još nisu primili terapiju
+--2) Popis svih pacijenata i ljudi koji su bili u doticaju s njima(doktori,sestre,posjetitelji) na katu broj 2 na kojem je izbila zaraza nakon datuma X
+--3) Kolicine lijekova po nazivima kojima istice rok trajanja za manje od godinu dana
+--4) Popis svih doktora koji su prepisali lijek X pacijentima prije datuma Y
+--5) Popis svih ženskih pacijenata kojima su prepisani Antiaritmici
