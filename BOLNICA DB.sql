@@ -117,7 +117,9 @@ FOREIGN KEY (id_soba) REFERENCES soba(id)
  temperatura NUMERIC(2,1) NOT NULL,
  datum DATE NOT NULL,
  vrijeme_dolaska TIME NOT NULL,
- vrijeme_odlaska TIME NOT NULL
+ vrijeme_odlaska TIME NOT NULL,
+ id_pacijent INTEGER NOT NULL,
+ FOREIGN KEY (id_pacijent) REFERENCES pacijent (id)
  );
  
  CREATE TABLE oprema(
@@ -126,8 +128,7 @@ FOREIGN KEY (id_soba) REFERENCES soba(id)
  naziv VARCHAR(20) NOT NULL,
  datum_zaprimanja DATE NOT NULL,
  datum_otpisa DATE,
- id_soba INTEGER NOT NULL,
- 
+  
   );
   
    CREATE TABLE stanje_opreme(
