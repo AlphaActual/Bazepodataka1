@@ -126,16 +126,17 @@ FOREIGN KEY (id_soba) REFERENCES soba(id)
  naziv VARCHAR(20) NOT NULL,
  datum_zaprimanja DATE NOT NULL,
  datum_otpisa DATE,
- kolicina INTEGER NOT NULL,
  id_soba INTEGER NOT NULL,
- FOREIGN KEY (id_soba) REFERENCES soba(id)
+ 
   );
   
    CREATE TABLE stanje_opreme(
   id INTEGER PRIMARY KEY,
-  id_raspored_opreme INTEGER NOT NULL,
+  id_oprema INTEGER NOT NULL,
+  id_soba INTEGER NOT NULL,
   količina INTEGER NOT NULL,
-  FOREIGN KEY (id_raspored_opreme) REFERENCES raspored_opreme(id)
+  FOREIGN KEY (id_oprema) REFERENCES oprema(id),
+  FOREIGN KEY (id_soba) REFERENCES soba(id)  
 );
 
 -- ---POPUNJAVANJE TABLICA: odjel, doktor, sos_kontakt--- --
@@ -239,7 +240,9 @@ INSERT INTO soba VALUES
 -- sobe odjel 102
 (706, 001, 2,'popunjeno', 102),
 (707, 002, 2,'nedostupno', 102),
-(708, 003, 2,'slobodno', 102);
+(708, 003, 2,'slobodno', 102),
+(709,004,4,'popunjeno', 102),
+(710,005,4,'popunjeno', 102);
 
 -- id od 800 do 900
 INSERT INTO lijek VALUES
@@ -335,50 +338,61 @@ INSERT INTO terapija VALUES
 
 -- prijem([id], datum_prijema, {id_pacijent}, {id_medicinska_sestra}, {id_doktor}, {id_dijagnoza},  {id_soba})
 INSERT INTO prijem VALUES
-(1100, STR_TO_DATE('22.08.2022.','%d.%m.%Y.'), 400, 500,200,600,700 ),
-(1101, STR_TO_DATE('23.08.2022.','%d.%m.%Y.'), 401, 500,200,600,700 ),
-(1102, STR_TO_DATE('24.08.2022.','%d.%m.%Y.'), 402, 503,200,600,702 ),
-(1103, STR_TO_DATE('25.08.2022.','%d.%m.%Y.'), 403, 503,200,600,702 ),
-(1104, STR_TO_DATE('26.08.2022.','%d.%m.%Y.'), 404, 501,200,600,705 ),
-(1105, STR_TO_DATE('27.08.2022.','%d.%m.%Y.'), 405, 501,200,600,705 ),
-(1106, STR_TO_DATE('28.08.2022.','%d.%m.%Y.'), 406, 502,200,600,706 ),
-(1107, STR_TO_DATE('29.08.2022.','%d.%m.%Y.'), 407, 502,200,600,706 ),
-(1108, STR_TO_DATE('22.08.2022.','%d.%m.%Y.'), 408, 504,200,600,708 ),
-(1109, STR_TO_DATE('23.08.2022.','%d.%m.%Y.'), 409, 504,200,600,708 ),
--- moram nastavit sobe samo moramo dodati još soba
-(1110, STR_TO_DATE('24.08.2022.','%d.%m.%Y.'), 410, 500,200,600,701 ),
-(1111, STR_TO_DATE('25.08.2022.','%d.%m.%Y.'), 411, 500,200,600,701 ),
-(1112, STR_TO_DATE('26.08.2022.','%d.%m.%Y.'), 412, 500,200,600,701 ),
-(113, STR_TO_DATE('27.08.2022.','%d.%m.%Y.'), 413, 500,200,600,701 ),
-(1114, STR_TO_DATE('28.08.2022.','%d.%m.%Y.'), 414, 500,200,600,701 ),
-(1115, STR_TO_DATE('29.08.2022.','%d.%m.%Y.'), 415, 500,200,600,701 ),
-(1116, STR_TO_DATE('30.08.2022.','%d.%m.%Y.'), 416, 500,200,600,701 ),
-(1117, STR_TO_DATE('23.08.2022.','%d.%m.%Y.'), 417, 500,200,600,701 ),
-(1118, STR_TO_DATE('22.08.2022.','%d.%m.%Y.'), 418, 500,200,600,701 ),
-(1119, STR_TO_DATE('20.08.2022.','%d.%m.%Y.'), 419, 500,200,600,701 );
+(1100, STR_TO_DATE('22.08.2022.','%d.%m.%Y.'), 400, 500,201,600,700 ),
+(1101, STR_TO_DATE('23.08.2022.','%d.%m.%Y.'), 401, 500,204,601,700 ),
+(1102, STR_TO_DATE('24.08.2022.','%d.%m.%Y.'), 402, 503,205,600,702 ),
+(1103, STR_TO_DATE('25.08.2022.','%d.%m.%Y.'), 403, 503,207,601,702 ),
+(1104, STR_TO_DATE('26.08.2022.','%d.%m.%Y.'), 404, 501,202,602,705 ),
+(1105, STR_TO_DATE('27.08.2022.','%d.%m.%Y.'), 405, 501,206,602,705 ),
+(1106, STR_TO_DATE('28.08.2022.','%d.%m.%Y.'), 406, 502,200,603,706 ),
+(1107, STR_TO_DATE('29.08.2022.','%d.%m.%Y.'), 407, 502,208,603,706 ),
+(1108, STR_TO_DATE('22.08.2022.','%d.%m.%Y.'), 408, 504,200,604,708 ),
+(1109, STR_TO_DATE('23.08.2022.','%d.%m.%Y.'), 409, 504,200,604,708 ),
+(1110, STR_TO_DATE('24.08.2022.','%d.%m.%Y.'), 410, 502,200,604,709 ),
+(1111, STR_TO_DATE('25.08.2022.','%d.%m.%Y.'), 411, 502,200,603,709 ),
+(1112, STR_TO_DATE('26.08.2022.','%d.%m.%Y.'), 412, 502,200,604,709 ),
+(1113, STR_TO_DATE('27.08.2022.','%d.%m.%Y.'), 413, 502,200,603,709 ),
+(1114, STR_TO_DATE('28.08.2022.','%d.%m.%Y.'), 414, 504,208,604,710 ),
+(1115, STR_TO_DATE('29.08.2022.','%d.%m.%Y.'), 415, 504,208,603,710 ),
+(1116, STR_TO_DATE('30.08.2022.','%d.%m.%Y.'), 416, 504,208,604,710 ),
+(1117, STR_TO_DATE('23.08.2022.','%d.%m.%Y.'), 417, 504,208,603,710 ),
+;
 
 -- posjeta([id], ime, prezime, temperatura, datum, vrijeme_dolaska, vrijeme_odlaska, {id_pacijent})
 INSERT INTO posjeta VALUES
-(1100,'Zora', 'Kunstl',36.5,STR_TO_TIME('22.08.2022.','%d.%m.%Y.'), STR_TO_TIME('10:00'),STR_TO_TIME('10:30'),400)
-(1100,'Stanko', 'Sutarić',36.5,STR_TO_TIME('23.08.2022.','%d.%m.%Y.'), STR_TO_TIME('11:00'),STR_TO_TIME('11:30'),401)
-(1100,'Issa', 'Biševac',36.5,STR_TO_TIME('24.08.2022.','%d.%m.%Y.'), STR_TO_TIME('12:30'),STR_TO_TIME('12:35'),402)
-(1100,'Elenora', 'Delfar',36.5,STR_TO_TIME('25.08.2022.','%d.%m.%Y.'), STR_TO_TIME('11:00'),STR_TO_TIME('11:30'),403)
-(1100,'Aden', 'Kotolaš',36.5,STR_TO_TIME('26.08.2022.','%d.%m.%Y.'), STR_TO_TIME('12:00'),STR_TO_TIME('12:30'),404)
-(1100,'Vojmil', 'Novaković',36.5,STR_TO_TIME('27.08.2022.','%d.%m.%Y.'), STR_TO_TIME('10:00'),STR_TO_TIME('10:30'),405)
-(1100,'Ljubica', 'Topić',36.5,STR_TO_TIME('28.08.2022.','%d.%m.%Y.'), STR_TO_TIME('10:00'),STR_TO_TIME('10:30'),406)
+(1201,'Zora', 'Kunstl',36.1,STR_TO_TIME('22.08.2022.','%d.%m.%Y.'), STR_TO_TIME('10:00'),STR_TO_TIME('10:30'),400)
+(1202,'Stanko', 'Sutarić',36.2,STR_TO_TIME('23.08.2022.','%d.%m.%Y.'), STR_TO_TIME('11:00'),STR_TO_TIME('11:30'),401)
+(1203,'Issa', 'Biševac',36.3,STR_TO_TIME('24.08.2022.','%d.%m.%Y.'), STR_TO_TIME('12:30'),STR_TO_TIME('12:35'),402)
+(1204,'Elenora', 'Delfar',36.4,STR_TO_TIME('25.08.2022.','%d.%m.%Y.'), STR_TO_TIME('11:00'),STR_TO_TIME('11:30'),403)
+(1205,'Aden', 'Kotolaš',36.5,STR_TO_TIME('26.08.2022.','%d.%m.%Y.'), STR_TO_TIME('12:00'),STR_TO_TIME('12:30'),404)
+(1206,'Vojmil', 'Novaković',36.6,STR_TO_TIME('27.08.2022.','%d.%m.%Y.'), STR_TO_TIME('10:00'),STR_TO_TIME('10:30'),405)
+(1207,'Ljubica', 'Topić',36.7,STR_TO_TIME('28.08.2022.','%d.%m.%Y.'), STR_TO_TIME('10:00'),STR_TO_TIME('10:30'),406)
 
-(1100,'Jopa', 'Stanic',36.5,STR_TO_TIME('29.08.2022.','%d.%m.%Y.'), STR_TO_TIME('18:00'),STR_TO_TIME('18:30'),407)
-(1100,'Zorko', 'Kunac',36.5,STR_TO_TIME('22.08.2022.','%d.%m.%Y.'), STR_TO_TIME('17:00'),STR_TO_TIME('17:30'),408)
-(1100,'Iva', 'Vanić',36.5,STR_TO_TIME('23.08.2022.','%d.%m.%Y.'), STR_TO_TIME('11:00'),STR_TO_TIME('12:30'),409)
-(1100,'Maja', 'Prijatel',36.5,STR_TO_TIME('24.08.2022.','%d.%m.%Y.'), STR_TO_TIME('13:00'),STR_TO_TIME('13:30'),410)
-(1100,'Kuma', 'Kumi',36.5,STR_TO_TIME('25.08.2022.','%d.%m.%Y.'), STR_TO_TIME('14:00'),STR_TO_TIME('14:30'),411)
-(1100,'Jasna', 'Zelić',36.5,STR_TO_TIME('26.08.2022.','%d.%m.%Y.'), STR_TO_TIME('16:00'),STR_TO_TIME('16:30'),412)
-(1100,'Jugoslav', 'Čerišnja',36.5,STR_TO_TIME('27.08.2022.','%d.%m.%Y.'), STR_TO_TIME('12:00'),STR_TO_TIME('12:30'),413)
+(1208,'Jopa', 'Stanic',36.8,STR_TO_TIME('29.08.2022.','%d.%m.%Y.'), STR_TO_TIME('18:00'),STR_TO_TIME('18:30'),407)
+(1209,'Zorko', 'Kunac',36.5,STR_TO_TIME('22.08.2022.','%d.%m.%Y.'), STR_TO_TIME('17:00'),STR_TO_TIME('17:30'),408)
+(1210,'Iva', 'Vanić',36.4,STR_TO_TIME('23.08.2022.','%d.%m.%Y.'), STR_TO_TIME('11:00'),STR_TO_TIME('12:30'),409)
+(1211,'Maja', 'Prijatel',36.3,STR_TO_TIME('24.08.2022.','%d.%m.%Y.'), STR_TO_TIME('13:00'),STR_TO_TIME('13:30'),410)
+(1212,'Kuma', 'Kumi',36.2,STR_TO_TIME('25.08.2022.','%d.%m.%Y.'), STR_TO_TIME('14:00'),STR_TO_TIME('14:30'),411)
+(1213,'Jasna', 'Zelić',36.1,STR_TO_TIME('26.08.2022.','%d.%m.%Y.'), STR_TO_TIME('16:00'),STR_TO_TIME('16:30'),412)
+(1214,'Jugoslav', 'Čerišnja',36.0,STR_TO_TIME('27.08.2022.','%d.%m.%Y.'), STR_TO_TIME('12:00'),STR_TO_TIME('12:30'),413)
  ;
  
-  -- id,sifra,naziv, datum_zaprimanja, datum_otpisa, kolicina,id_soba
+  -- id,sifra,naziv, datum_zaprimanja, datum_otpisa,
  INSERT INTO oprema VALUES
- (1200, 'abc1', 'EKG', 20.02.2002
+ (1300, 'A000.0', 'EKG', STR_TO_DATE('20.02.2002')),
+ (1301, 'A000.1', 'STETOSKOP', STR_TO_DATE('20.02.2003')),
+ (1302, 'A000.2', 'LARINGOSKOP', STR_TO_DATE('20.02.2004')),
+ (1303, 'A000.3', 'ULTRAZVUK', STR_TO_DATE('20.02.2005')), 
+ (1304, 'A000.4', 'MOBILNI RENTGENSKI UREĐAJ', STR_TO_DATE('20.02.2006')),
+ (1305, 'A000.5', 'KREVET ZA PRIJEVOZ PACIJENATA', STR_TO_DATE('20.02.2002')),
+ (1306, 'A000.6', 'HIDRAULIČKI PODESIVA KOLICA', STR_TO_DATE('20.02.2002'));
 
 INSERT INTO stanje_opreme VALUES
+  (1400,1300,704,3),
+  (1401,1301,704,5),
+  (1402,1302,707,3),
+  (1403,1303,707,1),
+  (1404,1304,707,1),
+  (1405,1305,707,1),
+  (1406,1306,704,2);
   
