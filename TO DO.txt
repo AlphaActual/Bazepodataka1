@@ -3,7 +3,7 @@ ISPUNITI:
 - raspored_opreme
 - prijem
 - posjeta
-- dijagnoza -> popuniti sa 'ispavnim' vrijednostima
+
 
 -> iz prijema izbrisati id_odjel
 
