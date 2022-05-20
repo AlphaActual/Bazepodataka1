@@ -215,13 +215,18 @@ INSERT INTO medicinske_sestre VALUES
 (504, 'Žarka', 'Stanić', STR_TO_DATE('05.02.1992','%d.%m.%Y.'), 102);	
 
 -- id od 600 do 700
-/* provjeriti sifre i nazive dijagnoze da imaju veze s odjelima na kojima se lijece */
+
 INSERT INTO dijagnoza VALUES
-(600, 'nesto' , 'nesto'), 
-(601, 'nesto' , 'nesto'),
-(602, 'nesto' , 'nesto'),
-(603, 'nesto' , 'nesto'),
-(604, 'nesto' , 'nesto');
+(600, 'Hypertensio arterialis essentialis (primaria)' , 'I 10'), 
+(601, 'Angina pectoris' , 'I 20'),
+(602, 'Infarctus myocardii acutus' , 'I 21'),
+(603, 'Vulnus apertum abdominis lumbi et pelvis' , 'S 31'),
+(604, 'Luxatio vertebrae lumbalis' , 'S 33.1'),
+(605, 'Laesio traumatica aortae abdominalis' , 'S 35'),
+(606, '(Osteo)arthrosis generalisata primaria' , 'M 15'),
+(607, 'Deformationes digitorum manus et digitorum pedis acquisitae' , 'M 20'),
+(608, 'Pes planus (acquisitus)' , 'M 21.4');
+
 
 -- ---POPUNJAVANJE TABLICA: soba, lijek, terapija--- --
 
