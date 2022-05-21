@@ -146,7 +146,7 @@ FOREIGN KEY (id_soba) REFERENCES soba(id)
 INSERT INTO odjel VALUES
 (100, 'Kardiologija', 2, 3),
 (101, 'Intenzivno liječenje', 3, 3),
-(102, 'Ortopedija', 1, 3);
+(102, 'Ortopedija', 1, 5);
 -- id od 200 do 300
 INSERT INTO doktor VALUES 
 (200, 'Krešimira', 'Paspalj', STR_TO_DATE('11.01.1978.','%d.%m.%Y.'), 102),
