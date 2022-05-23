@@ -50,8 +50,8 @@ FOREIGN KEY (id_odjel) REFERENCES odjel (id)
 
 CREATE TABLE dijagnoza(
 id INTEGER PRIMARY KEY,
-sifra VARCHAR (20) NOT NULL UNIQUE,
-naziv VARCHAR (20) NOT NULL UNIQUE
+sifra VARCHAR (60) NOT NULL UNIQUE,
+naziv VARCHAR (60) NOT NULL UNIQUE
 );
 
 -- ----------------------TIN--------------------- --
@@ -78,8 +78,8 @@ id INTEGER PRIMARY KEY,
 id_lijek INTEGER NOT NULL,
 količina INTEGER NOT NULL,
 rok_valjanosti DATE NOT NULL,
-FOREIGN KEY (id_lijek) REFERENCES lijek (id)
-CHECK (rok_valjanosti > STR_TO_DATE('15.05.2020.', '%d.%m.%y.'))
+FOREIGN KEY (id_lijek) REFERENCES lijek (id),
+CHECK (rok_valjanosti > STR_TO_DATE('15.05.2020.', '%d.%m.%Y.'))
 );
 
 CREATE TABLE terapija (
@@ -114,8 +114,8 @@ FOREIGN KEY (id_soba) REFERENCES soba(id)
  id INTEGER PRIMARY KEY,
  ime VARCHAR(20) NOT NULL,
  prezime VARCHAR(20) NOT NULL,
- temperatura NUMERIC(2,1) NOT NULL,
- datum DATE NOT NULL,
+ temperatura NUMERIC(3,1) NOT NULL,
+ datum DATETIME NOT NULL,
  vrijeme_dolaska TIME NOT NULL,
  vrijeme_odlaska TIME NOT NULL,
  id_pacijent INTEGER NOT NULL,
@@ -125,9 +125,9 @@ FOREIGN KEY (id_soba) REFERENCES soba(id)
  CREATE TABLE oprema(
  id INTEGER PRIMARY KEY,
  sifra VARCHAR(10) NOT NULL UNIQUE,
- naziv VARCHAR(20) NOT NULL,
- datum_zaprimanja DATE NOT NULL,
- datum_otpisa DATE,
+ naziv VARCHAR(30) NOT NULL,
+ datum_zaprimanja DATE NOT NULL
+ 
   
   );
   
@@ -333,14 +333,15 @@ INSERT INTO stanje_lijekova VALUES
 INSERT INTO terapija VALUES
 (1000, 400, 812, '2 tablete dnevno, tjedan dana'),
 (1001, 403, 816, '1 tableta svakih 6 sati, tri dana'),
-(1002, 407, 806, '1 tableta dnevno'),
+(1002, 412, 806, '1 tableta dnevno'),
 (1003, 408, 803, '2 tablete prije rucka, 5 dana'),
 (1004, 411, 802, '1 tableta dnevno'),
 (1005, 413, 813, 'po potrebi'),
 (1006, 414, 807, '1 tableta svakih 7 sati, 6 dana'),
-(1007, 415, 802, '2 tablete svaki dan u razmaku od 8 sati'),
+(1007, 416, 802, '2 tablete svaki dan u razmaku od 8 sati'),
 (1008, 417, 800, 'po potrebi'),
 (1009, 419, 817, 'svakih 8 sati jedna tableta');
+
 
 -- prijem([id], datum_prijema, {id_pacijent}, {id_medicinska_sestra}, {id_doktor}, {id_dijagnoza},  {id_soba})
 INSERT INTO prijem VALUES
@@ -361,37 +362,37 @@ INSERT INTO prijem VALUES
 (1114, STR_TO_DATE('28.08.2022.','%d.%m.%Y.'), 414, 504,208,604,710 ),
 (1115, STR_TO_DATE('29.08.2022.','%d.%m.%Y.'), 415, 504,208,603,710 ),
 (1116, STR_TO_DATE('30.08.2022.','%d.%m.%Y.'), 416, 504,208,604,710 ),
-(1117, STR_TO_DATE('23.08.2022.','%d.%m.%Y.'), 417, 504,208,603,710 ),
+(1117, STR_TO_DATE('23.08.2022.','%d.%m.%Y.'), 417, 504,208,603,710 )
 ;
 
 -- posjeta([id], ime, prezime, temperatura, datum, vrijeme_dolaska, vrijeme_odlaska, {id_pacijent})
 INSERT INTO posjeta VALUES
-(1201,'Zora', 'Kunstl',36.1,STR_TO_TIME('22.08.2022.','%d.%m.%Y.'), STR_TO_TIME('10:00'),STR_TO_TIME('10:30'),400)
-(1202,'Stanko', 'Sutarić',36.2,STR_TO_TIME('23.08.2022.','%d.%m.%Y.'), STR_TO_TIME('11:00'),STR_TO_TIME('11:30'),401)
-(1203,'Issa', 'Biševac',36.3,STR_TO_TIME('24.08.2022.','%d.%m.%Y.'), STR_TO_TIME('12:30'),STR_TO_TIME('12:35'),402)
-(1204,'Elenora', 'Delfar',36.4,STR_TO_TIME('25.08.2022.','%d.%m.%Y.'), STR_TO_TIME('11:00'),STR_TO_TIME('11:30'),403)
-(1205,'Aden', 'Kotolaš',36.5,STR_TO_TIME('26.08.2022.','%d.%m.%Y.'), STR_TO_TIME('12:00'),STR_TO_TIME('12:30'),404)
-(1206,'Vojmil', 'Novaković',36.6,STR_TO_TIME('27.08.2022.','%d.%m.%Y.'), STR_TO_TIME('10:00'),STR_TO_TIME('10:30'),405)
-(1207,'Ljubica', 'Topić',36.7,STR_TO_TIME('28.08.2022.','%d.%m.%Y.'), STR_TO_TIME('10:00'),STR_TO_TIME('10:30'),406)
+(1201,'Zora', 'Kunstl',36.1, STR_TO_DATE('22.08.2022.','%d.%m.%Y.'), '10:00','10:30',400),
+(1202,'Stanko', 'Sutarić',36.2, STR_TO_DATE('23.08.2022.','%d.%m.%Y.'), '11:00','11:30',401),
+(1203,'Issa', 'Biševac',36.3, STR_TO_DATE('24.08.2022.','%d.%m.%Y.'), '12:30','12:35',402),
+(1204,'Elenora', 'Delfar',36.4, STR_TO_DATE('25.08.2022.','%d.%m.%Y.'), '11:00','11:30',403),
+(1205,'Aden', 'Kotolaš',36.5, STR_TO_DATE('26.08.2022.','%d.%m.%Y.'), '12:00','12:30',404),
+(1206,'Vojmil', 'Novaković',36.6, STR_TO_DATE('27.08.2022.','%d.%m.%Y.'), '10:00','10:30',405),
+(1207,'Ljubica', 'Topić',36.7, STR_TO_DATE('28.08.2022.','%d.%m.%Y.'), '10:00','10:30',406),
 
-(1208,'Jopa', 'Stanic',36.8,STR_TO_TIME('29.08.2022.','%d.%m.%Y.'), STR_TO_TIME('18:00'),STR_TO_TIME('18:30'),407)
-(1209,'Zorko', 'Kunac',36.5,STR_TO_TIME('22.08.2022.','%d.%m.%Y.'), STR_TO_TIME('17:00'),STR_TO_TIME('17:30'),408)
-(1210,'Iva', 'Vanić',36.4,STR_TO_TIME('23.08.2022.','%d.%m.%Y.'), STR_TO_TIME('11:00'),STR_TO_TIME('12:30'),409)
-(1211,'Maja', 'Prijatel',36.3,STR_TO_TIME('24.08.2022.','%d.%m.%Y.'), STR_TO_TIME('13:00'),STR_TO_TIME('13:30'),410)
-(1212,'Kuma', 'Kumi',36.2,STR_TO_TIME('25.08.2022.','%d.%m.%Y.'), STR_TO_TIME('14:00'),STR_TO_TIME('14:30'),411)
-(1213,'Jasna', 'Zelić',36.1,STR_TO_TIME('26.08.2022.','%d.%m.%Y.'), STR_TO_TIME('16:00'),STR_TO_TIME('16:30'),412)
-(1214,'Jugoslav', 'Čerišnja',36.0,STR_TO_TIME('27.08.2022.','%d.%m.%Y.'), STR_TO_TIME('12:00'),STR_TO_TIME('12:30'),413)
+(1208,'Jopa', 'Stanic',36.8, STR_TO_DATE('29.08.2022.','%d.%m.%Y.'), '18:00','18:30',407),
+(1209,'Zorko', 'Kunac',36.5, STR_TO_DATE('22.08.2022.','%d.%m.%Y.'), '17:00','17:30',408),
+(1210,'Iva', 'Vanić',36.4, STR_TO_DATE('23.08.2022.','%d.%m.%Y.'), '11:00','12:30',409),
+(1211,'Maja', 'Prijatel',36.3, STR_TO_DATE('24.08.2022.','%d.%m.%Y.'), '13:00','13:30',410),
+(1212,'Kuma', 'Kumi',36.2, STR_TO_DATE('25.08.2022.','%d.%m.%Y.'), '14:00','14:30',411),
+(1213,'Jasna', 'Zelić',36.1, STR_TO_DATE('26.08.2022.','%d.%m.%Y.'), '16:00','16:30',412),
+(1214,'Jugoslav', 'Čerišnja',36.0, STR_TO_DATE('27.08.2022.','%d.%m.%Y.'), '12:00','12:30',413)
  ;
  
   -- id,sifra,naziv, datum_zaprimanja, datum_otpisa,
  INSERT INTO oprema VALUES
- (1300, 'A000.0', 'EKG', STR_TO_DATE('20.02.2002')),
- (1301, 'A000.1', 'STETOSKOP', STR_TO_DATE('20.02.2003')),
- (1302, 'A000.2', 'LARINGOSKOP', STR_TO_DATE('20.02.2004')),
- (1303, 'A000.3', 'ULTRAZVUK', STR_TO_DATE('20.02.2005')), 
- (1304, 'A000.4', 'MOBILNI RENTGENSKI UREĐAJ', STR_TO_DATE('20.02.2006')),
- (1305, 'A000.5', 'KREVET ZA PRIJEVOZ PACIJENATA', STR_TO_DATE('20.02.2002')),
- (1306, 'A000.6', 'HIDRAULIČKI PODESIVA KOLICA', STR_TO_DATE('20.02.2002'));
+ (1300, 'A000.0', 'EKG', STR_TO_DATE('20.02.2002','%d.%m.%Y.')),
+ (1301, 'A000.1', 'STETOSKOP', STR_TO_DATE('20.02.2003','%d.%m.%Y.')),
+ (1302, 'A000.2', 'LARINGOSKOP', STR_TO_DATE('20.02.2004','%d.%m.%Y.')),
+ (1303, 'A000.3', 'ULTRAZVUK', STR_TO_DATE('20.02.2005','%d.%m.%Y.')), 
+ (1304, 'A000.4', 'MOBILNI RENTGENSKI UREĐAJ', STR_TO_DATE('20.02.2006','%d.%m.%Y.')),
+ (1305, 'A000.5', 'KREVET ZA PRIJEVOZ PACIJENATA', STR_TO_DATE('20.02.2002','%d.%m.%Y.')),
+ (1306, 'A000.6', 'HIDRAULICKI PODESIVA KOLICA', STR_TO_DATE('20.02.2002','%d.%m.%Y.'));
 
 INSERT INTO stanje_opreme VALUES
   (1400,1300,704,3),
@@ -401,4 +402,62 @@ INSERT INTO stanje_opreme VALUES
   (1404,1304,707,1),
   (1405,1305,707,1),
   (1406,1306,704,2);
+
+
+
+-- --------- TIN UPITI ---------- --
+-- 1) Svi pacijenti koji su primljeni prije datuma X kod doktora Y a koji još nisu primili terapiju
+ -- Doktorica Debeljak otišla je na godišnji odmor 30.08.2022, te je bilo potrebno zbrinuti njene pacijente koji su joj dodjeljeni prije
+ -- odlaska na godišnji odmor, a kojima ona još nije prepisala terapiju.
   
+SELECT pa.*
+FROM pacijent as pa, prijem as pr, doktor as d
+WHERE pa.id = pr.id_pacijent 
+	AND pr.id_doktor = d.id
+    AND d.prezime = 'Debeljak'
+    AND pr.datum_prijema < STR_TO_DATE('30.08.2022','%d.%m.%Y.')
+HAVING pa.id NOT IN (SELECT id_pacijent FROM terapija);
+
+-- 2) Popis svih pacijenata i ljudi koji su bili u doticaju s njima (doktori,sestre,posjetitelji) na katu broj 2 na kojem je izbila zaraza nakon datuma X
+ -- Na katu broj 2 bolnice izbila je zaraza među pacijentima i potrebno je sastaviti popis svih ljudi(uključujući i pacijente) koji su se nakon određenog datuma našli na ovom katu.
+-- selektiranje svih pacijenata s drugog kata gdje je izbila zaraza nakon datuma 
+CREATE VIEW zarazeni_pacijenti AS
+SELECT p.id,p.ime,p.prezime
+FROM pacijent as p,prijem,soba,odjel
+WHERE p.id = prijem.id_pacijent
+AND prijem.id_soba = soba.id
+AND soba.id_odjel = odjel.id
+AND kat = 2 AND  datum_prijema >= STR_TO_DATE('24.08.2022','%d.%m.%Y.');
+
+
+-- popis zarazenih pacijenata
+SELECT *  FROM  zarazeni_pacijenti
+
+UNION
+
+-- popis svih doktora na temelju zarazenih pacijenata
+SELECT DISTINCT doc.id, doc.ime, doc.prezime 
+FROM doktor as doc, zarazeni_pacijenti as za , prijem
+WHERE za.id = prijem.id_pacijent
+AND doc.id = prijem.id_doktor
+
+UNION
+
+-- popis svih medicinskih sestara na temelju zarazenih pacijenata
+SELECT DISTINCT med.id, med.ime, med.prezime 
+FROM medicinske_sestre as med, zarazeni_pacijenti as za , prijem
+WHERE za.id = prijem.id_pacijent
+AND med.id = prijem.id_medicinske_sestre
+
+UNION
+
+-- popis svih posjeta pacijentima drugog kata na temelju tablice zarazenih pacijenata
+SELECT DISTINCT pos.id, pos.ime, pos.prezime 
+FROM posjeta as pos, zarazeni_pacijenti as za
+WHERE za.id = pos.id_pacijent;
+
+
+
+
+
+
