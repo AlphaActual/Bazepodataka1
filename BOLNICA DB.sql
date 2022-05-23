@@ -456,7 +456,17 @@ SELECT DISTINCT pos.id, pos.ime, pos.prezime
 FROM posjeta as pos, zarazeni_pacijenti as za
 WHERE za.id = pos.id_pacijent;
 
+-- 3) Kolicine lijekova po nazivima kojima istice rok trajanja za manje od godinu dana
+-- Odjel nabave obavezan je unaprijed  naručiti nove zalihe lijekova kojima ističe rok za manje od godinu dana, stoga je potrebno
+-- sastaviti popis i stanje takvih zaliha lijekova u bolnici.
+-- Lijekovi kojima je istekao rok trajanja su također u evidenciji sve do njihovog zbrinjavanja i odlaganja.
 
+-- SELECT lijek.naziv, stanje_lijekova.količina
+SELECT lijek.id, lijek.naziv, stanje_lijekova.količina, rok_valjanosti, (SELECT DATEDIFF(rok_valjanosti,(SELECT NOW() FROM DUAL))) as dani_do_isteka
+FROM lijek, stanje_lijekova
+WHERE lijek.id = stanje_lijekova.id_lijek
+HAVING dani_do_isteka < 365
+ORDER BY dani_do_isteka ASC;
 
 
 
