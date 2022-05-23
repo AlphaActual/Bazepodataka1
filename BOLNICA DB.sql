@@ -407,14 +407,14 @@ INSERT INTO stanje_opreme VALUES
 
 -- --------- TIN UPITI ---------- --
 -- 1) Svi pacijenti koji su primljeni prije datuma X kod doktora Y a koji još nisu primili terapiju
- -- Doktorica Debeljak otišla je na godišnji odmor 30.08.2022, te je bilo potrebno zbrinuti njene pacijente koji su joj dodjeljeni prije
+ -- Doktorica Debeljak (id:208) otišla je na godišnji odmor 30.08.2022, te je bilo potrebno zbrinuti njene pacijente koji su joj dodjeljeni prije
  -- odlaska na godišnji odmor, a kojima ona još nije prepisala terapiju.
   
 SELECT pa.*
 FROM pacijent as pa, prijem as pr, doktor as d
 WHERE pa.id = pr.id_pacijent 
-	AND pr.id_doktor = d.id
-    AND d.prezime = 'Debeljak'
+    AND pr.id_doktor = d.id
+    AND d.id = 208
     AND pr.datum_prijema < STR_TO_DATE('30.08.2022','%d.%m.%Y.')
 HAVING pa.id NOT IN (SELECT id_pacijent FROM terapija);
 
