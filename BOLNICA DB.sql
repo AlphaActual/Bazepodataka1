@@ -349,6 +349,7 @@ INSERT INTO terapija VALUES
 
 
 -- prijem([id], datum_prijema, {id_pacijent}, {id_medicinska_sestra}, {id_doktor}, {id_dijagnoza},  {id_soba})
+-- id od 1100-1200
 INSERT INTO prijem VALUES
 -- Kardiologija
 (1100, STR_TO_DATE('22.08.2022.','%d.%m.%Y.'), 400, 500,201,600,700 ),
@@ -377,6 +378,7 @@ INSERT INTO prijem VALUES
 ;
 
 -- posjeta([id], ime, prezime, temperatura, datum, vrijeme_dolaska, vrijeme_odlaska, {id_pacijent})
+-- id 1200-1300
 INSERT INTO posjeta VALUES
 -- Iz SOS
 (1201,'Zora', 'Kunstl',36.1, STR_TO_DATE('22.08.2022.','%d.%m.%Y.'), '10:00','10:30',400),
@@ -397,7 +399,8 @@ INSERT INTO posjeta VALUES
 (1214,'Jugoslav', 'Čerišnja',36.0, STR_TO_DATE('27.08.2022.','%d.%m.%Y.'), '12:00','12:30',413)
  ;
  
-  -- id,sifra,naziv, datum_zaprimanja, datum_otpisa,
+  -- id,sifra,naziv, datum_zaprimanja, 
+  -- id 1300-1400
  INSERT INTO oprema VALUES
  (1300, 'A000.0', 'EKG', STR_TO_DATE('20.02.2002','%d.%m.%Y.')),
  (1301, 'A000.1', 'STETOSKOP', STR_TO_DATE('20.02.2003','%d.%m.%Y.')),
@@ -407,6 +410,7 @@ INSERT INTO posjeta VALUES
  (1305, 'A000.5', 'KREVET ZA PRIJEVOZ PACIJENATA', STR_TO_DATE('20.02.2002','%d.%m.%Y.')),
  (1306, 'A000.6', 'HIDRAULICKI PODESIVA KOLICA', STR_TO_DATE('20.02.2002','%d.%m.%Y.'));
 
+-- id 1400-1500
 INSERT INTO stanje_opreme VALUES
   (1400,1300,704,3),
   (1401,1301,704,5),
