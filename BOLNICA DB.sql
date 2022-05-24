@@ -340,7 +340,11 @@ INSERT INTO terapija VALUES
 (1006, 414, 807, '1 tableta svakih 7 sati, 6 dana'),
 (1007, 416, 802, '2 tablete svaki dan u razmaku od 8 sati'),
 (1008, 417, 800, 'po potrebi'),
-(1009, 419, 817, 'svakih 8 sati jedna tableta');
+(1009, 419, 817, 'svakih 8 sati jedna tableta'),
+(1010, 400, 811, 'svakih 12 sati jedna tableta'),
+(1011, 415, 811, '1 tableta dnevno'),
+(1012, 416, 811, 'svakih 6 sati dvije tablete'),
+(1013, 414, 810, 'svakih 12 sati jedna tableta');
 
 
 -- prijem([id], datum_prijema, {id_pacijent}, {id_medicinska_sestra}, {id_doktor}, {id_dijagnoza},  {id_soba})
@@ -423,11 +427,12 @@ HAVING pa.id NOT IN (SELECT id_pacijent FROM terapija);
 -- selektiranje svih pacijenata s drugog kata gdje je izbila zaraza nakon datuma 
 CREATE VIEW zarazeni_pacijenti AS
 SELECT p.id,p.ime,p.prezime
-FROM pacijent as p,prijem,soba,odjel
+FROM pacijent as p, prijem, soba, odjel
 WHERE p.id = prijem.id_pacijent
-AND prijem.id_soba = soba.id
-AND soba.id_odjel = odjel.id
-AND kat = 2 AND  datum_prijema >= STR_TO_DATE('24.08.2022','%d.%m.%Y.');
+	AND prijem.id_soba = soba.id
+	AND soba.id_odjel = odjel.id
+	AND kat = 2 
+    AND  datum_prijema >= STR_TO_DATE('24.08.2022','%d.%m.%Y.');
 
 
 -- popis zarazenih pacijenata
@@ -452,22 +457,43 @@ AND med.id = prijem.id_medicinske_sestre
 UNION
 
 -- popis svih posjeta pacijentima drugog kata na temelju tablice zarazenih pacijenata
-SELECT DISTINCT pos.id, pos.ime, pos.prezime 
+SELECT DISTINCT pos.id, pos.ime, pos.prezime
 FROM posjeta as pos, zarazeni_pacijenti as za
 WHERE za.id = pos.id_pacijent;
 
 -- 3) Kolicine lijekova po nazivima kojima istice rok trajanja za manje od godinu dana
 -- Odjel nabave obavezan je unaprijed  naručiti nove zalihe lijekova kojima ističe rok za manje od godinu dana, stoga je potrebno
 -- sastaviti popis i stanje takvih zaliha lijekova u bolnici.
--- Lijekovi kojima je istekao rok trajanja su također u evidenciji sve do njihovog zbrinjavanja i odlaganja.
+-- Lijekovi kojima je istekao rok trajanja su također u evidenciji sve do njihovog zbrinjavanja i odlaganja, no u ovom slučaju nas zanimaju samo lijekovi sa valjanim rokom uporabe  koji se
+-- trenutno koriste u bolnici
 
 -- SELECT lijek.naziv, stanje_lijekova.količina
-SELECT lijek.id, lijek.naziv, stanje_lijekova.količina, rok_valjanosti, (SELECT DATEDIFF(rok_valjanosti,(SELECT NOW() FROM DUAL))) as dani_do_isteka
-FROM lijek, stanje_lijekova
-WHERE lijek.id = stanje_lijekova.id_lijek
-HAVING dani_do_isteka < 365
+SELECT li.id, li.naziv, st.količina, st.rok_valjanosti, (SELECT DATEDIFF(rok_valjanosti,(SELECT NOW() FROM DUAL))) as dani_do_isteka
+FROM lijek as li
+INNER JOIN stanje_lijekova as st ON li.id = st.id_lijek 
+HAVING dani_do_isteka BETWEEN 0 AND 365
 ORDER BY dani_do_isteka ASC;
 
+-- 4) Koliko je koji doktor propisao lijekova pacijentima u razdoblju između X i Y?
+-- Doktori koji su prepisali najviše lijekova pacijentima u razdoblju između x i y?
 
+CREATE VIEW broj_izdavanja_lijeka AS
+SELECT doc.id, doc.ime, doc.prezime, COUNT(doc.id) as ukupno_izdano_lijekova 
+FROM pacijent as pa
+INNER JOIN prijem as pr ON pa.id = pr.id_pacijent
+INNER JOIN doktor as doc ON doc.id = pr.id_doktor
+INNER JOIN terapija as te ON pa.id = te.id_pacijent
+WHERE  datum_prijema BETWEEN STR_TO_DATE('22.08.2022','%d.%m.%Y.') AND STR_TO_DATE('29.08.2022','%d.%m.%Y.')
+GROUP BY doc.id
+ORDER BY ukupno_izdano_lijekova DESC;
+
+-- ukupno po doktoru
+SELECT * 
+FROM broj_izdavanja_lijeka;
+
+-- doktori sa najviše izdanih lijekova
+SELECT * 
+FROM broj_izdavanja_lijeka
+WHERE ukupno_izdano_lijekova = (SELECT MAX(ukupno_izdano_lijekova) FROM broj_izdavanja_lijeka);
 
 
