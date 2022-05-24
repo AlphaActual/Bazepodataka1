@@ -204,7 +204,7 @@ INSERT INTO pacijent VALUES
 (417, 'Petar', 'Dragojević', STR_TO_DATE('03.04.1978.','%d.%m.%Y.'), 'Ulica Trsine 45', 'M', '0957563219', '65498732', 317),
 (418, 'Boris', 'Vlašić', STR_TO_DATE('28.07.1984.','%d.%m.%Y.'), 'Puljska cesta 19', 'M', '092548796', '815687459', 318),
 (419, 'Matija', 'Mladenović', STR_TO_DATE('13.08.1997.','%d.%m.%Y.'), 'Miševečka ulica 4', 'M', '0918964756', '81587459', 319),
-(420, 'filip', 'Perišić', STR_TO_DATE('14.09.1998.','%d.%m.%Y.'), 'Laginjina ulica 18', 'M', '091598624', '8542681', 319);
+(420, 'Filip', 'Perišić', STR_TO_DATE('14.09.1998.','%d.%m.%Y.'), 'Laginjina ulica 18', 'M', '091598624', '8542681', 319);
 
 
 -- id od 500 do 600
@@ -247,7 +247,7 @@ INSERT INTO soba VALUES
 -- sobe odjel 102
 (706, 001, 2,'popunjeno', 102),
 (707, 002, 2,'nedostupno', 102),
-(708, 003, 2,'slobodno', 102),
+(708, 003, 5,'popunjeno', 102),
 (709,004,4,'popunjeno', 102),
 (710,005,4,'popunjeno', 102);
 
@@ -369,7 +369,10 @@ INSERT INTO prijem VALUES
 (1114, STR_TO_DATE('28.08.2022.','%d.%m.%Y.'), 414, 504,208,604,710 ),
 (1115, STR_TO_DATE('29.08.2022.','%d.%m.%Y.'), 415, 504,208,607,710 ),
 (1116, STR_TO_DATE('30.08.2022.','%d.%m.%Y.'), 416, 504,208,604,710 ),
-(1117, STR_TO_DATE('23.08.2022.','%d.%m.%Y.'), 417, 504,208,608,710 )
+(1117, STR_TO_DATE('23.08.2022.','%d.%m.%Y.'), 417, 504,208,608,710 ),
+(1118, STR_TO_DATE('23.08.2022.','%d.%m.%Y.'), 418, 504,208,607,708 ),
+(1119, STR_TO_DATE('23.08.2022.','%d.%m.%Y.'), 419, 504,200,608,708 ),
+(1120, STR_TO_DATE('23.08.2022.','%d.%m.%Y.'), 420, 504,200,608,708 )
 ;
 
 -- posjeta([id], ime, prezime, temperatura, datum, vrijeme_dolaska, vrijeme_odlaska, {id_pacijent})
