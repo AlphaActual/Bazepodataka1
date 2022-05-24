@@ -204,7 +204,9 @@ INSERT INTO pacijent VALUES
 (416, 'Toni', 'Belić', STR_TO_DATE('25.12.1976.','%d.%m.%Y.'), 'Trščanska ulica 14', 'M', '0954235785', '78965478', 316),
 (417, 'Petar', 'Dragojević', STR_TO_DATE('03.04.1978.','%d.%m.%Y.'), 'Ulica Trsine 45', 'M', '0957563219', '65498732', 317),
 (418, 'Boris', 'Vlašić', STR_TO_DATE('28.07.1984.','%d.%m.%Y.'), 'Puljska cesta 19', 'M', '092548796', '815687459', 318),
-(419, 'Matija', 'Mladenović', STR_TO_DATE('13.08.1997.','%d.%m.%Y.'), 'Miševečka ulica 4', 'M', '0918964756', '81587459', 319);
+(419, 'Matija', 'Mladenović', STR_TO_DATE('13.08.1997.','%d.%m.%Y.'), 'Miševečka ulica 4', 'M', '0918964756', '81587459', 319),
+(420, 'filip', 'Perišić', STR_TO_DATE('14.09.1998.','%d.%m.%Y.'), 'Laginjina ulica 18', 'M', '091598624', '8542681', 319);
+
 
 -- id od 500 do 600
 INSERT INTO medicinske_sestre VALUES 
