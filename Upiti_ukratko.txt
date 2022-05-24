@@ -2,8 +2,9 @@
 --1) Svi pacijenti koji su primljeni datuma X kod doktora Y a koji još nisu primili terapiju
 --2) Popis svih pacijenata i ljudi koji su bili u doticaju s njima(doktori,sestre,posjetitelji) na katu broj 2 na kojem je izbila zaraza nakon datuma X
 --3) Kolicine lijekova po nazivima kojima istice rok trajanja za manje od godinu dana
---4) Popis svih doktora koji su prepisali lijek X pacijentima prije datuma Y
---5) Popis svih ženskih pacijenata kojima su prepisani Antiaritmici
+--4) Koliko je koji doktor propisao lijekova pacijentima u razdoblju između X i Y?
+--5) Doktori koji su prepisali najviše lijekova pacijentima u razdoblju između x i y?
+--6) Popis svih ženskih pacijenata kojima su prepisani Antiaritmici
 
 -- ----MARIJA----- --
 1. Popis opreme koju koriste medicinske sestre.
