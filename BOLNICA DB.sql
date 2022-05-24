@@ -350,14 +350,15 @@ INSERT INTO terapija VALUES
 
 -- prijem([id], datum_prijema, {id_pacijent}, {id_medicinska_sestra}, {id_doktor}, {id_dijagnoza},  {id_soba})
 INSERT INTO prijem VALUES
+-- Kardiologija
 (1100, STR_TO_DATE('22.08.2022.','%d.%m.%Y.'), 400, 500,201,600,700 ),
 (1101, STR_TO_DATE('23.08.2022.','%d.%m.%Y.'), 401, 500,204,601,700 ),
 (1102, STR_TO_DATE('24.08.2022.','%d.%m.%Y.'), 402, 503,205,600,702 ),
 (1103, STR_TO_DATE('25.08.2022.','%d.%m.%Y.'), 403, 503,207,601,702 ),
-
+-- Inetnzivna
 (1104, STR_TO_DATE('26.08.2022.','%d.%m.%Y.'), 404, 501,202,602,705 ),
 (1105, STR_TO_DATE('27.08.2022.','%d.%m.%Y.'), 405, 501,206,602,705 ),
-
+-- Ortopedija
 (1106, STR_TO_DATE('28.08.2022.','%d.%m.%Y.'), 406, 502,200,604,706 ),
 (1107, STR_TO_DATE('29.08.2022.','%d.%m.%Y.'), 407, 502,208,605,706 ),
 (1108, STR_TO_DATE('22.08.2022.','%d.%m.%Y.'), 408, 504,200,604,708 ),
@@ -377,6 +378,7 @@ INSERT INTO prijem VALUES
 
 -- posjeta([id], ime, prezime, temperatura, datum, vrijeme_dolaska, vrijeme_odlaska, {id_pacijent})
 INSERT INTO posjeta VALUES
+-- Iz SOS
 (1201,'Zora', 'Kunstl',36.1, STR_TO_DATE('22.08.2022.','%d.%m.%Y.'), '10:00','10:30',400),
 (1202,'Stanko', 'Sutarić',36.2, STR_TO_DATE('23.08.2022.','%d.%m.%Y.'), '11:00','11:30',401),
 (1203,'Issa', 'Biševac',36.3, STR_TO_DATE('24.08.2022.','%d.%m.%Y.'), '12:30','12:35',402),
@@ -385,6 +387,7 @@ INSERT INTO posjeta VALUES
 (1206,'Vojmil', 'Novaković',36.6, STR_TO_DATE('27.08.2022.','%d.%m.%Y.'), '10:00','10:30',405),
 (1207,'Ljubica', 'Topić',36.7, STR_TO_DATE('28.08.2022.','%d.%m.%Y.'), '10:00','10:30',406),
 
+-- ostali
 (1208,'Jopa', 'Stanic',36.8, STR_TO_DATE('29.08.2022.','%d.%m.%Y.'), '18:00','18:30',407),
 (1209,'Zorko', 'Kunac',36.5, STR_TO_DATE('22.08.2022.','%d.%m.%Y.'), '17:00','17:30',408),
 (1210,'Iva', 'Vanić',36.4, STR_TO_DATE('23.08.2022.','%d.%m.%Y.'), '11:00','12:30',409),
