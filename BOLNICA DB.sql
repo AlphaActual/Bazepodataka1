@@ -475,7 +475,7 @@ HAVING dani_do_isteka BETWEEN 0 AND 365
 ORDER BY dani_do_isteka ASC;
 
 -- 4) Koliko je koji doktor propisao lijekova pacijentima u razdoblju između X i Y?
--- Doktori koji su prepisali najviše lijekova pacijentima u razdoblju između x i y?
+-- 5) Doktori koji su prepisali najviše lijekova pacijentima u razdoblju između x i y?
 
 CREATE VIEW broj_izdavanja_lijeka AS
 SELECT doc.id, doc.ime, doc.prezime, COUNT(doc.id) as ukupno_izdano_lijekova 
@@ -496,4 +496,13 @@ SELECT *
 FROM broj_izdavanja_lijeka
 WHERE ukupno_izdano_lijekova = (SELECT MAX(ukupno_izdano_lijekova) FROM broj_izdavanja_lijeka);
 
+
+-- 6) Koliko pacijenata je na kojoj vrsti lijekova?
+SELECT vrsta as vrsta_lijeka, COUNT(vrsta) as broj_pacijenata
+FROM pacijent as pa
+INNER JOIN terapija as te ON pa.id = te.id_pacijent
+INNER JOIN lijek as li ON li.id = te.id_lijek
+GROUP BY vrsta
+ORDER BY broj_pacijenata DESC;
+-- ----- TIN kraj upita ----- --
 
