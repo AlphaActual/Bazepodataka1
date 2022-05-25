@@ -537,4 +537,20 @@ LEFT JOIN
 		FROM prijem
 		GROUP BY id_doktor) AS izracun ON doktor.id=izracun.id_doktor;
 
+-- 5. UPIT: Popis pacijenata sa brojem posjeta (odvojeno posjete sos kontakata i onih koji nisu sos kontakti).
+-- RJEŠENJE: pacijent id, pacijent ime i prezime, pacijent spol, sos broj posjeta, broj ostalih posjeta
+SELECT pacijent.id, CONCAT(pacijent.ime, ' ', pacijent.prezime) AS ime_i_prezime,
+pacijent.spol, COALESCE(sos.sos_broj_posjeta, 0) AS sos_broj_posjeta,
+COALESCE(ukupno.ukupna_posjeta, 0)-COALESCE(sos.sos_broj_posjeta, 0) AS broj_ostalih_posjeta
+	FROM pacijent
+LEFT JOIN
+	(SELECT posjeta.id_pacijent, COUNT(posjeta.id) AS sos_broj_posjeta
+		FROM posjeta, sos_kontakt
+		WHERE posjeta.ime=sos_kontakt.ime AND posjeta.prezime=sos_kontakt.prezime
+		GROUP BY id_pacijent) AS sos ON pacijent.id=sos.id_pacijent
+LEFT JOIN
+	(SELECT posjeta.id_pacijent, COUNT(posjeta.id) AS ukupna_posjeta
+		FROM posjeta
+		GROUP BY id_pacijent) AS ukupno ON pacijent.id=ukupno.id_pacijent;
+
 -- ----- MARIJA kraj upita ----- --
