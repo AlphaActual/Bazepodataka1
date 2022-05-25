@@ -530,7 +530,8 @@ ORDER BY broj_pacijenata DESC;
 
 -- 3. UPIT: Ukupan broj pacijenata za koje je zadužen pojedini doktor (uključujući doktore koji nisu zaduženi za niti jednog pacijenta).
 -- RJEŠENJE: doktor id, doktor ime i prezime, doktor odjel, broj pacijenata
-SELECT doktor.id, CONCAT(doktor.ime, ' ', doktor.prezime) AS ime_i_prezime, doktor.id_odjel, COALESCE(broj_pacijenata, 0) AS broj_pacijenata
+SELECT doktor.id, CONCAT(doktor.ime, ' ', doktor.prezime) AS ime_i_prezime, doktor.id_odjel,
+COALESCE(broj_pacijenata, 0) AS broj_pacijenata
 	FROM doktor
 LEFT JOIN
 	(SELECT id_doktor, COUNT(id_pacijent) AS broj_pacijenata
