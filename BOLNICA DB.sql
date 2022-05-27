@@ -518,12 +518,18 @@ WHERE ukupno_izdano_lijekova = (SELECT MAX(ukupno_izdano_lijekova) FROM broj_izd
 
 
 -- 6) Koliko pacijenata je na kojoj vrsti lijekova?
+CREATE VIEW pacijenti_po_lijeku AS
 SELECT vrsta as vrsta_lijeka, COUNT(vrsta) as broj_pacijenata
 FROM pacijent as pa
 INNER JOIN terapija as te ON pa.id = te.id_pacijent
 INNER JOIN lijek as li ON li.id = te.id_lijek
-GROUP BY vrsta
-ORDER BY broj_pacijenata DESC;
+GROUP BY vrsta_lijeka;
+
+SELECT DISTINCT li.vrsta as vrsta_lijeka, COALESCE(broj_pacijenata,0) as broj_pacijenata
+FROM lijek as li
+LEFT JOIN (SELECT * FROM pacijenti_po_lijeku ) as result ON li.vrsta = result.vrsta_lijeka
+ORDER BY broj_pacijenata DESC, vrsta_lijeka ASC;
+
 -- ----- TIN kraj upita ----- --
 
 -- --------- MARIJA UPITI ---------- --
