@@ -527,7 +527,7 @@ GROUP BY vrsta_lijeka;
 
 SELECT DISTINCT li.vrsta as vrsta_lijeka, COALESCE(broj_pacijenata,0) as broj_pacijenata
 FROM lijek as li
-LEFT JOIN (SELECT * FROM pacijenti_po_lijeku ) as result ON li.vrsta = result.vrsta_lijeka
+LEFT JOIN  pacijenti_po_lijeku ON li.vrsta = pacijenti_po_lijeku.vrsta_lijeka
 ORDER BY broj_pacijenata DESC, vrsta_lijeka ASC;
 
 -- ----- TIN kraj upita ----- --
