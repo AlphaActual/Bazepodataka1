@@ -544,6 +544,20 @@ LEFT JOIN
 		FROM prijem
 		GROUP BY id_doktor) AS izracun ON doktor.id=izracun.id_doktor;
 
+-- 4. UPIT: Popis svih lijekova na odjelu Kardiologije, a kojima je datum isteka prije 2023. godine.
+-- RJEŠENJE: lijek id, lijek vrsta, lijek proizvođač, lijek naziv, stanje_lijekova rok_valjanosti
+CREATE VIEW prije_zadane AS
+SELECT *
+	FROM stanje_lijekova
+    WHERE YEAR (rok_valjanosti) < 2023
+    ORDER BY rok_valjanosti ASC;
+
+SELECT lijek_pod.id, lijek_pod.vrsta, lijek_pod.proizvodac, lijek_pod.naziv, prije_zadane.rok_valjanosti
+	FROM prije_zadane
+LEFT JOIN
+	(SELECT *
+		FROM lijek) AS lijek_pod ON prije_zadane.id_lijek=lijek_pod.id;
+
 -- 5. UPIT: Popis pacijenata sa brojem posjeta (odvojeno posjete sos kontakata i onih koji nisu sos kontakti).
 -- RJEŠENJE: pacijent id, pacijent ime i prezime, pacijent spol, sos broj posjeta, broj ostalih posjeta
 SELECT pacijent.id, CONCAT(pacijent.ime, ' ', pacijent.prezime) AS ime_i_prezime,
