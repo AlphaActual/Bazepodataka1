@@ -50,8 +50,8 @@ FOREIGN KEY (id_odjel) REFERENCES odjel (id)
 
 CREATE TABLE dijagnoza(
 id INTEGER PRIMARY KEY,
-sifra VARCHAR (60) NOT NULL UNIQUE,
-naziv VARCHAR (60) NOT NULL UNIQUE
+naziv VARCHAR (60) NOT NULL UNIQUE,
+sifra VARCHAR (60) NOT NULL UNIQUE
 );
 
 -- ----------------------TIN--------------------- --
