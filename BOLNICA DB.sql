@@ -534,6 +534,26 @@ ORDER BY broj_pacijenata DESC, vrsta_lijeka ASC;
 
 -- --------- MARIJA UPITI ---------- --
 
+-- 1. UPIT: Količina opreme koju koristi pojedina medicinska sestra.
+-- RJEŠENJE: medicinske_sestre id, medicinske_sestre ime & prezime, količina opreme
+
+CREATE VIEW sestra_soba AS
+SELECT medicinske_sestre.id, CONCAT(medicinske_sestre.ime, ' ', medicinske_sestre.prezime) AS ime_i_prezime, soba.id AS broj_sobe
+	FROM medicinske_sestre, soba
+    WHERE medicinske_sestre.id_odjel=soba.id_odjel;
+
+CREATE VIEW kol_po_sobi AS
+SELECT sestra_soba.id, sestra_soba.ime_i_prezime, COALESCE(kolicina.kol_u_sobi, 0) AS kolicina
+	FROM sestra_soba
+LEFT JOIN
+	(SELECT *, SUM(kolicina) AS kol_u_sobi
+		FROM stanje_opreme
+		GROUP BY id_soba) AS kolicina ON sestra_soba.broj_sobe=kolicina.id_soba;
+
+SELECT kol_po_sobi.id, kol_po_sobi.ime_i_prezime, SUM(kolicina) AS kolicina_opreme
+	FROM kol_po_sobi
+    GROUP BY id;
+
 -- 2. UPIT: Popis sos kontakata svih pacijenata sa dijagnozom 'Infarctus myocardii acutus'.
 -- RJEŠENJE: pacijent ime i prezime, sos_kontakt ime i prezime , sos_kontakt broj_telefona
 
