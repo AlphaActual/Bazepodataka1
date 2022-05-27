@@ -534,6 +534,24 @@ ORDER BY broj_pacijenata DESC, vrsta_lijeka ASC;
 
 -- --------- MARIJA UPITI ---------- --
 
+-- 2. UPIT: Popis sos kontakata svih pacijenata sa dijagnozom 'Infarctus myocardii acutus'.
+-- RJEŠENJE: pacijent ime i prezime, sos_kontakt ime i prezime , sos_kontakt broj_telefona
+
+CREATE VIEW sa_dijagnozom AS
+SELECT prijem.id_pacijent
+	FROM prijem, dijagnoza
+    WHERE prijem.id_dijagnoza=dijagnoza.id AND dijagnoza.naziv='Infarctus myocardii acutus';
+
+SELECT CONCAT(pacijent.ime, ' ', pacijent.prezime) AS ime_i_prezime,
+CONCAT(sos_pod.ime, ' ', sos_pod.prezime) AS sos_ime_i_prezime, sos_pod.broj_telefona
+	FROM pacijent
+RIGHT JOIN
+	(SELECT *
+		FROM sa_dijagnozom) AS trazena_dijag ON pacijent.id=trazena_dijag.id_pacijent
+LEFT JOIN
+	(SELECT *
+		FROM sos_kontakt) AS sos_pod ON pacijent.id_sos_kontakt=sos_pod.id;
+
 -- 3. UPIT: Ukupan broj pacijenata za koje je zadužen pojedini doktor (uključujući doktore koji nisu zaduženi za niti jednog pacijenta).
 -- RJEŠENJE: doktor id, doktor ime i prezime, doktor odjel, broj pacijenata
 SELECT doktor.id, CONCAT(doktor.ime, ' ', doktor.prezime) AS ime_i_prezime, doktor.id_odjel,
