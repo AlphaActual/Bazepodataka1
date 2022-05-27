@@ -574,6 +574,7 @@ LEFT JOIN
 
 -- 3. UPIT: Ukupan broj pacijenata za koje je zadužen pojedini doktor (uključujući doktore koji nisu zaduženi za niti jednog pacijenta).
 -- RJEŠENJE: doktor id, doktor ime i prezime, doktor odjel, broj pacijenata
+
 SELECT doktor.id, CONCAT(doktor.ime, ' ', doktor.prezime) AS ime_i_prezime, doktor.id_odjel,
 COALESCE(broj_pacijenata, 0) AS broj_pacijenata
 	FROM doktor
@@ -584,6 +585,7 @@ LEFT JOIN
 
 -- 4. UPIT: Popis svih lijekova na odjelu Kardiologije, a kojima je datum isteka prije 2023. godine.
 -- RJEŠENJE: lijek id, lijek vrsta, lijek proizvođač, lijek naziv, stanje_lijekova rok_valjanosti
+
 CREATE VIEW prije_zadane AS
 SELECT *
 	FROM stanje_lijekova
@@ -598,6 +600,7 @@ LEFT JOIN
 
 -- 5. UPIT: Popis pacijenata sa brojem posjeta (odvojeno posjete sos kontakata i onih koji nisu sos kontakti).
 -- RJEŠENJE: pacijent id, pacijent ime i prezime, pacijent spol, sos broj posjeta, broj ostalih posjeta
+
 SELECT pacijent.id, CONCAT(pacijent.ime, ' ', pacijent.prezime) AS ime_i_prezime,
 pacijent.spol, COALESCE(sos.sos_broj_posjeta, 0) AS sos_broj_posjeta,
 COALESCE(ukupno.ukupna_posjeta, 0)-COALESCE(sos.sos_broj_posjeta, 0) AS broj_ostalih_posjeta
