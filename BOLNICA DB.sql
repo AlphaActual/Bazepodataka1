@@ -13,7 +13,7 @@ CREATE TABLE doktor (
 id INTEGER PRIMARY KEY,
 ime VARCHAR (20) NOT NULL,
 prezime VARCHAR (20) NOT NULL,
-datum_rođenja DATE NOT NULL,
+datum_rodenja DATE NOT NULL,
 id_odjel INTEGER NOT NULL,
 FOREIGN KEY (id_odjel) REFERENCES odjel (id)
 );
