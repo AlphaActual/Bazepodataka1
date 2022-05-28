@@ -641,7 +641,7 @@ SELECT * from Medicinari;
 SELECT * from Medicinari WHERE broj_pacijenata>5;
 
 
- /*2) Prikaz svih soba u kojima su pacijenti kao i onih u kojima nema ni jednog pacijenta */
+ /*2) Prikaz svih soba u kojima su pacijenti kao i onih u kojima nema ni jednog pacijenta  te medicinskih sestara koje su dodijeljene sobama*/
  CREATE VIEW broj_pacijenata
  SELECT m.id as ID ,CONCAT(m.ime ,' ', m.prezime)as Ime_i_prezime,pac.id, pac.ime as ime_pacijenta,pac.prezime as prezime_pacijenta, s.broj_sobe,s.id_odjel
 	FROM medicinske_sestre as m
