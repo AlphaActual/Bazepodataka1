@@ -655,4 +655,20 @@ SELECT * from Medicinari WHERE broj_pacijenata>5;
 WHERE id not in(SELECT DISTINCT id_soba FROM prijem );
   
   
-3.
+  /* 3) Prikaz zaposlenih po godinama starosti, računanje prosječne starosti zaposlenih, najstarija zaposlena osoba, najmlađa zaposlena osoba*/ 
+  CREATE VIEW godine AS
+SELECT *,  TIMESTAMPDIFF(YEAR, datum_rodenja, CURDATE())AS age FROM doktor
+UNION
+SELECT*,  TIMESTAMPDIFF(YEAR, datum_rodenja, CURDATE())AS age FROM medicinske_sestre
+ORDER BY datum_rođenja DESC;
+;
+-- najstariji zaposlenik
+SELECT * , MAX(age) 
+	FROM godine;
+-- broj zaposlenika
+SELECT  COUNT(*) as broj_zaposlenika 
+	FROM godine;
+-- najmlađi zaposlenik
+SELECT *, MIN(age) FROM godine;
+
+/* 4. */
