@@ -535,10 +535,10 @@ ORDER BY broj_pacijenata DESC, vrsta_lijeka ASC;
 -- --------- MARIJA UPITI ---------- --
 
 -- 1. UPIT: Količina opreme koju koristi pojedina medicinska sestra.
--- RJEŠENJE: medicinske_sestre id, medicinske_sestre ime & prezime, količina opreme
+-- RJEŠENJE: medicinske_sestre id, medicinske_sestre ime_i_prezime, kolicina_opreme
 
 CREATE VIEW sestra_soba AS
-SELECT medicinske_sestre.id, CONCAT(medicinske_sestre.ime, ' ', medicinske_sestre.prezime) AS ime_i_prezime, soba.id AS broj_sobe
+SELECT medicinske_sestre.id, CONCAT(medicinske_sestre.ime, ' ', medicinske_sestre.prezime) AS ime_i_prezime, soba.id AS id_sobe
 	FROM medicinske_sestre, soba
     WHERE medicinske_sestre.id_odjel=soba.id_odjel;
 
@@ -548,14 +548,14 @@ SELECT sestra_soba.id, sestra_soba.ime_i_prezime, COALESCE(kolicina.kol_u_sobi, 
 LEFT JOIN
 	(SELECT *, SUM(kolicina) AS kol_u_sobi
 		FROM stanje_opreme
-		GROUP BY id_soba) AS kolicina ON sestra_soba.broj_sobe=kolicina.id_soba;
+		GROUP BY id_soba) AS kolicina ON sestra_soba.id_sobe=kolicina.id_soba;
 
 SELECT kol_po_sobi.id, kol_po_sobi.ime_i_prezime, SUM(kolicina) AS kolicina_opreme
 	FROM kol_po_sobi
     GROUP BY id;
 
--- 2. UPIT: Popis sos kontakata svih pacijenata sa dijagnozom 'Infarctus myocardii acutus'.
--- RJEŠENJE: pacijent ime i prezime, sos_kontakt ime i prezime , sos_kontakt broj_telefona
+-- 2. UPIT: Popis SOS kontakata svih pacijenata sa dijagnozom 'Infarctus myocardii acutus'.
+-- RJEŠENJE: pacijent ime_i_prezime, sos_kontakt sos_ime_i_prezime , sos_kontakt broj_telefona
 
 CREATE VIEW sa_dijagnozom AS
 SELECT prijem.id_pacijent
@@ -565,16 +565,13 @@ SELECT prijem.id_pacijent
 SELECT CONCAT(pacijent.ime, ' ', pacijent.prezime) AS ime_i_prezime,
 CONCAT(sos_pod.ime, ' ', sos_pod.prezime) AS sos_ime_i_prezime, sos_pod.broj_telefona
 	FROM pacijent
-RIGHT JOIN
-	(SELECT *
-		FROM sa_dijagnozom) AS trazena_dijag ON pacijent.id=trazena_dijag.id_pacijent
-LEFT JOIN
-	(SELECT *
-		FROM sos_kontakt) AS sos_pod ON pacijent.id_sos_kontakt=sos_pod.id;
+RIGHT JOIN sa_dijagnozom AS trazena_dijag ON pacijent.id=trazena_dijag.id_pacijent
+LEFT JOIN sos_kontakt AS sos_pod ON pacijent.id_sos_kontakt=sos_pod.id;
 
--- 3. UPIT: Ukupan broj pacijenata za koje je zadužen pojedini doktor (uključujući doktore koji nisu zaduženi za niti jednog pacijenta).
--- RJEŠENJE: doktor id, doktor ime i prezime, doktor odjel, broj pacijenata
+-- 3. UPIT: Doktor s najviše pacijenata.
+-- RJEŠENJE: doktor id, doktor ime_i_prezime, doktor id_odjel, broj_pacijenata
 
+CREATE VIEW svi_brojevi_pac AS
 SELECT doktor.id, CONCAT(doktor.ime, ' ', doktor.prezime) AS ime_i_prezime, doktor.id_odjel,
 COALESCE(broj_pacijenata, 0) AS broj_pacijenata
 	FROM doktor
@@ -583,8 +580,13 @@ LEFT JOIN
 		FROM prijem
 		GROUP BY id_doktor) AS izracun ON doktor.id=izracun.id_doktor;
 
--- 4. UPIT: Popis svih lijekova na odjelu Kardiologije, a kojima je datum isteka prije 2023. godine.
--- RJEŠENJE: lijek id, lijek vrsta, lijek proizvođač, lijek naziv, stanje_lijekova rok_valjanosti
+SELECT *
+	FROM svi_brojevi_pac
+    ORDER BY broj_pacijenata DESC
+    LIMIT 1;
+
+-- 4. UPIT: Popis svih lijekova kojima je datum isteka prije 2023. godine, a proizvođač im je Bayer.
+-- RJEŠENJE: lijek id, lijek vrsta, lijek proizvodac, lijek naziv
 
 CREATE VIEW prije_zadane AS
 SELECT *
@@ -592,14 +594,13 @@ SELECT *
     WHERE YEAR (rok_valjanosti) < 2023
     ORDER BY rok_valjanosti ASC;
 
-SELECT lijek_pod.id, lijek_pod.vrsta, lijek_pod.proizvodac, lijek_pod.naziv, prije_zadane.rok_valjanosti
+SELECT lijek_pod.id, lijek_pod.vrsta, lijek_pod.proizvodac, lijek_pod.naziv
 	FROM prije_zadane
-LEFT JOIN
-	(SELECT *
-		FROM lijek) AS lijek_pod ON prije_zadane.id_lijek=lijek_pod.id;
+LEFT JOIN lijek AS lijek_pod ON prije_zadane.id_lijek=lijek_pod.id
+HAVING proizvodac='Bayer';
 
--- 5. UPIT: Popis pacijenata sa brojem posjeta (odvojeno posjete sos kontakata i onih koji nisu sos kontakti).
--- RJEŠENJE: pacijent id, pacijent ime i prezime, pacijent spol, sos broj posjeta, broj ostalih posjeta
+-- 5. UPIT: Popis pacijenata sa brojem posjeta (odvojeno posjete SOS kontakata i onih koji nisu SOS kontakti).
+-- RJEŠENJE: pacijent id, pacijent ime_i_prezime, pacijent spol, sos_broj_posjeta, broj_ostalih_posjeta
 
 SELECT pacijent.id, CONCAT(pacijent.ime, ' ', pacijent.prezime) AS ime_i_prezime,
 pacijent.spol, COALESCE(sos.sos_broj_posjeta, 0) AS sos_broj_posjeta,
