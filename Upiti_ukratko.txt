@@ -7,13 +7,17 @@
 --6) Koliko pacijenata je na kojoj vrsti lijekova?
 
 -- ----MARIJA----- --
-1. Popis opreme koju koriste medicinske sestre.
-(id opreme, sifra opreme, naziv opreme, id medicinske sestre, ime && prezime medicinske sestre)
-2. Popis sos kontakata svih pacijenata sa dijagnozom 'nekom'.
-(id sos kontakta, ime && prezime sos kontakta, broj telefona sos kontakta, ime i prezime pacijenta)
-3. Ukupan broj pacijenata za koje je zadužen pojedini doktor.
-(id doktora, ime && prezime doktora, odjel doktora, broj pacijenata)
-4. Popis svih lijekova koje su dobili pacijenti u X sobi (za koje je zadužena Y medicinska sestra), a kojima je datum isteka nakon Z datuma.
-(id lijeka, vrsta lijeka, proizvodac lijeka, naziv lijeka, datum isteka lijeka)
-5. Popis pacijenata sa brojem posjeta (odvojeno posjete sos kontakata i onih koji nisu sos kontakti).
-(id pacijenta, ime && prezime pacijenta, datum rodenja pacijenta, broj posjeta == sos, broj posjeta != sos)
+-- 1. UPIT: Količina opreme koju koristi pojedina medicinska sestra.
+-- RJEŠENJE: medicinske_sestre id, medicinske_sestre ime & prezime, količina opreme
+
+-- 2. UPIT: Popis sos kontakata svih pacijenata sa dijagnozom 'Infarctus myocardii acutus'.
+-- RJEŠENJE: pacijent ime i prezime, sos_kontakt ime i prezime , sos_kontakt broj_telefona
+
+-- 3. UPIT: Ukupan broj pacijenata za koje je zadužen pojedini doktor (uključujući doktore koji nisu zaduženi za niti jednog pacijenta).
+-- RJEŠENJE: doktor id, doktor ime i prezime, doktor odjel, broj pacijenata
+
+-- 4. UPIT: Popis svih lijekova na odjelu Kardiologije, a kojima je datum isteka prije 2023. godine.
+-- RJEŠENJE: lijek id, lijek vrsta, lijek proizvođač, lijek naziv, stanje_lijekova rok_valjanosti
+
+-- 5. UPIT: Popis pacijenata sa brojem posjeta (odvojeno posjete sos kontakata i onih koji nisu sos kontakti).
+-- RJEŠENJE: pacijent id, pacijent ime i prezime, pacijent spol, sos broj posjeta, broj ostalih posjeta
