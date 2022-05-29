@@ -662,13 +662,20 @@ UNION
 SELECT*,  TIMESTAMPDIFF(YEAR, datum_rodenja, CURDATE())AS age FROM medicinske_sestre
 ORDER BY datum_rođenja DESC;
 ;
--- najstariji zaposlenik
-SELECT * , MAX(age) 
+-- koliko g ima najstariji zaposlenik
+SELECT  MAX(age) 
 	FROM godine;
 -- broj zaposlenika
 SELECT  COUNT(*) as broj_zaposlenika 
 	FROM godine;
--- najmlađi zaposlenik
-SELECT *, MIN(age) FROM godine;
+-- godine najmlađeg zaposlenika
+SELECT MIN(age) FROM godine;
+--prosječan broj godina svih zaposlenih
+SELECT AVG(age) FROM godine;
+-- PRVA tri najstarija zaposlenika unutar bolnice
+SELECT * FROM GODINE ORDER BY age DESC LIMIT 3 ;
 
 /* 4. */
+
+
+
