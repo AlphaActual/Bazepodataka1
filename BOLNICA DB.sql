@@ -618,7 +618,7 @@ LEFT JOIN
 
 -- ----- MARIJA kraj upita ----- --
 -- ------NEVEN UPITI---- --
-/* 1) Prikaz svih medicinskih sestara i pacijenta za koje su one zadužene, poredane po atributu id_pacijent */
+/* Upit 1) Prikaz svih medicinskih sestara i pacijenta za koje su one zadužene, poredane po atributu id_pacijent */
   
  
 SELECT m.id as ID ,CONCAT(m.ime ,' ', m.prezime)as Ime_i_prezime,pac.id, pac.ime as ime_pacijenta,pac.prezime as prezime_pacijenta, s.broj_sobe,s.id_odjel
@@ -626,13 +626,14 @@ SELECT m.id as ID ,CONCAT(m.ime ,' ', m.prezime)as Ime_i_prezime,pac.id, pac.ime
   WHERE m.id=id_medicinske_sestre AND p.id_pacijent=pac. id AND p.id_soba=s.id
   ORDER BY pac.id DESC;
   
+ /*Upit 2*/
   -- prikaz broja pacijenata dodijeljenih svakoj medicinskoj sestri
   CREATE VIEW Medicinari AS   
-SELECT  p.id_medicinske_sestre,m.ime,m.prezime, COUNT(p.id_medicinske_sestre) as broj_pacijenata
+SELECT  p.id_medicinske_sestre,m.ime,m.prezime, COUNT(*) as broj_pacijenata
 FROM prijem as p, medicinske_sestre as m
-        WHERE m.id=p.id_medicinske_sestre
-	   group by p.id_medicinske_sestre
-      ORDER BY broj_pacijenata DESC;
+WHERE m.id=p.id_medicinske_sestre
+GROUP BY p.id_medicinske_sestre
+ORDER BY broj_pacijenata DESC;
 
 -- prikaz broja pacijenata po medicinskoj sestri
 SELECT * from Medicinari;
@@ -641,7 +642,7 @@ SELECT * from Medicinari;
 SELECT * from Medicinari WHERE broj_pacijenata>5;
 
 
- /*2) Prikaz svih soba u kojima su pacijenti kao i onih u kojima nema ni jednog pacijenta  te medicinskih sestara koje su dodijeljene sobama*/
+ /*Upit 3) Prikaz svih soba u kojima su pacijenti kao i onih u kojima nema ni jednog pacijenta  te medicinskih sestara koje su dodijeljene sobama*/
  CREATE VIEW broj_pacijenata
  SELECT m.id as ID ,CONCAT(m.ime ,' ', m.prezime)as Ime_i_prezime,pac.id, pac.ime as ime_pacijenta,pac.prezime as prezime_pacijenta, s.broj_sobe,s.id_odjel
 	FROM medicinske_sestre as m
@@ -658,7 +659,7 @@ SELECT * FROM soba
 WHERE id not in(SELECT DISTINCT id_soba FROM prijem ) AND
 soba.stanje='slobodno';
   
-  /* 3) Prikaz zaposlenih po godinama starosti, računanje prosječne starosti zaposlenih, najstarija zaposlena osoba, najmlađa zaposlena osoba*/ 
+  /* Upit 4) Prikaz zaposlenih po godinama starosti, računanje prosječne starosti zaposlenih, najstarija zaposlena osoba, najmlađa zaposlena osoba*/ 
   CREATE VIEW godine AS
 SELECT *,  TIMESTAMPDIFF(YEAR, datum_rodenja, CURDATE())AS age FROM doktor
 UNION
@@ -683,7 +684,7 @@ SELECT *
 	FROM godine 
 	WHERE age >(SELECT AVG(age) FROM godine);
 
-/* 4.Zaposleni na odjelima*/
+/* Upit 5.Zaposleni na odjelima*/
 
 CREATE VIEW zaposleni_na_odjelu AS
 SELECT m.id, m.ime, m.prezime, o.naziv FROM medicinske_sestre as m
