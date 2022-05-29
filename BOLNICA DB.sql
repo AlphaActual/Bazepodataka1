@@ -617,8 +617,9 @@ LEFT JOIN
 		GROUP BY id_pacijent) AS ukupno ON pacijent.id=ukupno.id_pacijent;
 
 -- ----- MARIJA kraj upita ----- --
+
 -- ------NEVEN UPITI---- --
-/* Upit 1) Prikaz svih medicinskih sestara i pacijenta za koje su one zadužene, poredane po atributu id_pacijent */
+/* Upit 1) Prikaz svih medicinskih sestara i pacijenta za koje su one zadužene, poredane po atributu id_pacijent---------- */
   
  
 SELECT m.id as ID ,CONCAT(m.ime ,' ', m.prezime)as Ime_i_prezime,pac.id, pac.ime as ime_pacijenta,pac.prezime as prezime_pacijenta, s.broj_sobe,s.id_odjel
@@ -626,7 +627,7 @@ SELECT m.id as ID ,CONCAT(m.ime ,' ', m.prezime)as Ime_i_prezime,pac.id, pac.ime
   WHERE m.id=id_medicinske_sestre AND p.id_pacijent=pac. id AND p.id_soba=s.id
   ORDER BY pac.id DESC;
   
- /*Upit 2*/
+ /*Upit 2--------------------------------------------------------------------*/
   -- prikaz broja pacijenata dodijeljenih svakoj medicinskoj sestri
   CREATE VIEW Medicinari AS   
 SELECT  p.id_medicinske_sestre,m.ime,m.prezime, COUNT(*) as broj_pacijenata
@@ -642,24 +643,9 @@ SELECT * from Medicinari;
 SELECT * from Medicinari WHERE broj_pacijenata>5;
 
 
- /*Upit 3) Prikaz svih soba u kojima su pacijenti kao i onih u kojima nema ni jednog pacijenta  te medicinskih sestara koje su dodijeljene sobama*/
- CREATE VIEW broj_pacijenata
- SELECT m.id as ID ,CONCAT(m.ime ,' ', m.prezime)as Ime_i_prezime,pac.id, pac.ime as ime_pacijenta,pac.prezime as prezime_pacijenta, s.broj_sobe,s.id_odjel
-	FROM medicinske_sestre as m
-	RIGHT OUTER JOIN prijem as p ON m.id=p.id_medicinske_sestre
-	RIGHT OUTER JOIN pacijent as pac ON p.id_pacijent=pac. id
-	RIGHT OUTER JOIN soba as s ON p.id_soba=s.id
-    ORDER BY s.id ASC;
-    
-    -- prikaz samo onih soba u kojima nisu pacijenti
-    SELECT * FROM soba
-WHERE id not in(SELECT DISTINCT id_soba FROM prijem );
-  -- prikaz slobodnih soba
-SELECT * FROM soba
-WHERE id not in(SELECT DISTINCT id_soba FROM prijem ) AND
-soba.stanje='slobodno';
+
   
-  /* Upit 4) Prikaz zaposlenih po godinama starosti, računanje prosječne starosti zaposlenih, najstarija zaposlena osoba, najmlađa zaposlena osoba*/ 
+  /* Upit 3) Prikaz zaposlenih po godinama starosti, računanje prosječne starosti zaposlenih, najstarija zaposlena osoba, najmlađa zaposlena osoba*/ 
 CREATE VIEW godine AS
 SELECT *, CURDATE() as sadasnji_datum, TIMESTAMPDIFF(YEAR, datum_rodenja, CURDATE())AS age FROM doktor
 UNION
@@ -684,7 +670,7 @@ SELECT *
 	FROM godine 
 	WHERE age >(SELECT AVG(age) FROM godine);
 
-/* Upit 5.Zaposleni na odjelima*/
+/* Upit 4.Zaposleni na odjelima--------------------------------------------------------*/
 
 CREATE VIEW zaposleni_na_odjelu AS
 SELECT m.id, m.ime, m.prezime, o.naziv FROM medicinske_sestre as m
@@ -699,5 +685,23 @@ SELECT *
 FROM zaposleni_na_odjelu 
 WHERE naziv='Kardiologija';
 
+-- dodatni proba upit------------------------------------------------------------------------------------
+*Upit dodatni Prikaz svih soba u kojima su pacijenti kao i onih u kojima nema ni jednog pacijenta  te medicinskih sestara koje su dodijeljene sobama*/
+ CREATE VIEW broj_pacijenata
+ SELECT m.id as ID ,CONCAT(m.ime ,' ', m.prezime)as Ime_i_prezime,pac.id, pac.ime as ime_pacijenta,pac.prezime as prezime_pacijenta, s.broj_sobe,s.id_odjel
+	FROM medicinske_sestre as m
+	RIGHT OUTER JOIN prijem as p ON m.id=p.id_medicinske_sestre
+	RIGHT OUTER JOIN pacijent as pac ON p.id_pacijent=pac. id
+	RIGHT OUTER JOIN soba as s ON p.id_soba=s.id
+    ORDER BY s.id ASC;
+    
+    -- prikaz samo onih soba u kojima nisu pacijenti
+    SELECT * FROM soba
+WHERE id not in(SELECT DISTINCT id_soba FROM prijem );
+  -- prikaz slobodnih soba
+SELECT * FROM soba
+WHERE id not in(SELECT DISTINCT id_soba FROM prijem ) AND
+soba.stanje='slobodno';
 
+-- kraj upita---NEVEN--- --
 
