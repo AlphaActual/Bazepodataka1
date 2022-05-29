@@ -675,6 +675,11 @@ SELECT AVG(age) FROM godine;
 -- PRVA tri najstarija zaposlenika unutar bolnice
 SELECT * FROM GODINE ORDER BY age DESC LIMIT 3 ;
 
+-- saznaj koji zaposlenici imaju više godina od prosječne dobi 
+SELECT * 
+	FROM godine 
+	WHERE age >(SELECT AVG(age) FROM godine);
+
 /* 4. */
 
 
