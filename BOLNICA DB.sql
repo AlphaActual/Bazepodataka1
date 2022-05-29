@@ -683,7 +683,20 @@ SELECT *
 	FROM godine 
 	WHERE age >(SELECT AVG(age) FROM godine);
 
-/* 4.  */
+/* 4.Zaposleni na odjelima*/
+
+CREATE VIEW zaposleni_na_odjelu AS
+SELECT m.id, m.ime, m.prezime, o.naziv FROM medicinske_sestre as m
+INNER JOIN odjel as o ON o.id=m.id_odjel
+UNION
+SELECT d.id, d.ime,d.prezime, o.naziv FROM doktor as d
+INNER JOIN odjel as o ON o.id= d.id_odjel
+;
+
+-- odaberi sve koji su zaposleni na odjelu kardiologije
+SELECT *  
+FROM zaposleni_na_odjelu 
+WHERE naziv='Kardiologija';
 
 
 
