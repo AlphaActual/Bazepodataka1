@@ -660,12 +660,12 @@ WHERE id not in(SELECT DISTINCT id_soba FROM prijem ) AND
 soba.stanje='slobodno';
   
   /* Upit 4) Prikaz zaposlenih po godinama starosti, računanje prosječne starosti zaposlenih, najstarija zaposlena osoba, najmlađa zaposlena osoba*/ 
-  CREATE VIEW godine AS
-SELECT *,  TIMESTAMPDIFF(YEAR, datum_rodenja, CURDATE())AS age FROM doktor
+CREATE VIEW godine AS
+SELECT *, CURDATE() as sadasnji_datum, TIMESTAMPDIFF(YEAR, datum_rodenja, CURDATE())AS age FROM doktor
 UNION
-SELECT*,  TIMESTAMPDIFF(YEAR, datum_rodenja, CURDATE())AS age FROM medicinske_sestre
-ORDER BY datum_rođenja DESC;
-;
+SELECT*, CURDATE() as sadasnji_datum,  TIMESTAMPDIFF(YEAR, datum_rodenja, CURDATE())AS age FROM medicinske_sestre
+ORDER BY datum_rodenja DESC;
+
 -- koliko g ima najstariji zaposlenik
 SELECT  MAX(age) 
 	FROM godine;
