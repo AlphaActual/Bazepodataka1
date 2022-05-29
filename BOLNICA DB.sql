@@ -653,7 +653,10 @@ SELECT * from Medicinari WHERE broj_pacijenata>5;
     -- prikaz samo onih soba u kojima nisu pacijenti
     SELECT * FROM soba
 WHERE id not in(SELECT DISTINCT id_soba FROM prijem );
-  
+  -- prikaz slobodnih soba
+SELECT * FROM soba
+WHERE id not in(SELECT DISTINCT id_soba FROM prijem ) AND
+soba.stanje='slobodno';
   
   /* 3) Prikaz zaposlenih po godinama starosti, računanje prosječne starosti zaposlenih, najstarija zaposlena osoba, najmlađa zaposlena osoba*/ 
   CREATE VIEW godine AS
@@ -680,7 +683,7 @@ SELECT *
 	FROM godine 
 	WHERE age >(SELECT AVG(age) FROM godine);
 
-/* 4. */
+/* 4.  */
 
 
 
