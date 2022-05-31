@@ -670,20 +670,6 @@ SELECT *
 	FROM godine 
 	WHERE age >(SELECT AVG(age) FROM godine);
 
-/* Upit 4.Zaposleni na odjelima--------------------------------------------------------*/
-
-CREATE VIEW zaposleni_na_odjelu AS
-SELECT m.id, m.ime, m.prezime, o.naziv FROM medicinske_sestre as m
-INNER JOIN odjel as o ON o.id=m.id_odjel
-UNION
-SELECT d.id, d.ime,d.prezime, o.naziv FROM doktor as d
-INNER JOIN odjel as o ON o.id= d.id_odjel
-;
-
--- odaberi sve koji su zaposleni na odjelu kardiologije
-SELECT *  
-FROM zaposleni_na_odjelu 
-WHERE naziv='Kardiologija';
 
 -- dodatni proba upit------------------------------------------------------------------------------------
 *Upit dodatni Prikaz svih soba u kojima su pacijenti kao i onih u kojima nema ni jednog pacijenta  te medicinskih sestara koje su dodijeljene sobama*/
@@ -705,3 +691,45 @@ soba.stanje='slobodno';
 
 -- kraj upita---NEVEN--- --
 
+------------upiti Noel------------------
+1 -- prikaži vrstu lijeka i proizvođača lijeka kojeg je koristio 'Alen Kolić' 
+
+    
+SELECT lijek.vrsta, lijek.proizvodac
+    FROM lijek
+    INNER JOIN terapija
+    ON lijek.id = terapija.id_lijek
+    INNER JOIN pacijent
+    ON terapija.id_pacijent = pacijent.id
+    WHERE ime = 'Alen' AND prezime = 'Kolić';
+
+2 -- prikaži sos_kontakte i pacijente koji imaju isto prezime
+
+SELECT sos_kontakt.ime, sos_kontakt.prezime, pacijent.ime, pacijent.prezime
+    FROM sos_kontakt LEFT OUTER JOIN pacijent USING(prezime);
+
+3--prikaži ime, prezime i datum rodenja najstarije osobe kojoj je dijagnosticirana 'Angina pectoris'  
+     
+SELECT pacijent.ime, pacijent.prezime, datum_rodenja
+    FROM pacijent 
+    INNER JOIN prijem
+    ON pacijent.id = prijem.id_pacijent
+    INNER JOIN dijagnoza
+    ON prijem.id_dijagnoza = dijagnoza.id
+    WHERE naziv = 'Angina pectoris'
+    ORDER BY datum_rodenja ASC
+    LIMIT 1;
+4-- prikaži sve zaposlene medicinske sestre i doktore unutar bolnice. Unutar pogleda moguće je izabrati koji radnici rade na kojim odjelima, koliko je ukupno radnika na svakom odjelu.
+
+ CREATE VIEW zaposleni_na_odjelu AS
+SELECT m.id, m.ime, m.prezime, o.naziv FROM medicinske_sestre as m
+INNER JOIN odjel as o ON o.id=m.id_odjel
+UNION
+SELECT d.id, d.ime,d.prezime, o.naziv FROM doktor as d
+INNER JOIN odjel as o ON o.id= d.id_odjel
+ORDER BY naziv DESC;
+
+-- odaberi sve koji su zaposleni na odjelu kardiologije
+SELECT *  
+FROM zaposleni_na_odjelu 
+WHERE naziv='Kardiologija';
