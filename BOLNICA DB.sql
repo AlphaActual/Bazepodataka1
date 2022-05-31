@@ -692,7 +692,7 @@ soba.stanje='slobodno';
 -- kraj upita---NEVEN--- --
 
 ------------upiti Noel------------------
-1 -- prikaži vrstu lijeka i proizvođača lijeka kojeg je koristio 'Alen Kolić' 
+-- prikaži vrstu lijeka i proizvođača lijeka kojeg je koristio 'Alen Kolić' 
 
     
 SELECT lijek.vrsta, lijek.proizvodac
@@ -703,12 +703,12 @@ SELECT lijek.vrsta, lijek.proizvodac
     ON terapija.id_pacijent = pacijent.id
     WHERE ime = 'Alen' AND prezime = 'Kolić';
 
-2 -- prikaži sos_kontakte i pacijente koji imaju isto prezime
+-- prikaži sos_kontakte i pacijente koji imaju isto prezime
 
 SELECT sos_kontakt.ime, sos_kontakt.prezime, pacijent.ime, pacijent.prezime
     FROM sos_kontakt LEFT OUTER JOIN pacijent USING(prezime);
 
-3--prikaži ime, prezime i datum rodenja najstarije osobe kojoj je dijagnosticirana 'Angina pectoris'  
+--prikaži ime, prezime i datum rodenja najstarije osobe kojoj je dijagnosticirana 'Angina pectoris'  
      
 SELECT pacijent.ime, pacijent.prezime, datum_rodenja
     FROM pacijent 
@@ -719,7 +719,7 @@ SELECT pacijent.ime, pacijent.prezime, datum_rodenja
     WHERE naziv = 'Angina pectoris'
     ORDER BY datum_rodenja ASC
     LIMIT 1;
-4-- prikaži sve zaposlene medicinske sestre i doktore unutar bolnice. Unutar pogleda moguće je izabrati koji radnici rade na kojim odjelima, koliko je ukupno radnika na svakom odjelu.
+-- prikaži sve zaposlene medicinske sestre i doktore unutar bolnice. Unutar pogleda moguće je izabrati koji radnici rade na kojim odjelima, koliko je ukupno radnika na svakom odjelu.
 
  CREATE VIEW zaposleni_na_odjelu AS
 SELECT m.id, m.ime, m.prezime, o.naziv FROM medicinske_sestre as m
